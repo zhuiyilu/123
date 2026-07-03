@@ -1,0 +1,918 @@
+name: 自动发现 + 聚合 + 测速 + 筛选最佳100
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */8 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 安装依赖
+        run: |
+          pip install --quiet --break-system-packages pyyaml || pip install --quiet pyyaml
+
+      - name: 下载 mihomo
+        run: |
+          VER=$(curl -sf "https://api.github.com/repos/MetaCubeX/mihomo/releases/latest" \
+                | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/' | head -1)
+          [ -z "$VER" ] && VER="1.19.27"
+          echo "mihomo 版本: v${VER}"
+          wget -q "https://github.com/MetaCubeX/mihomo/releases/download/v${VER}/mihomo-linux-amd64-compatible-v${VER}.gz" \
+               -O mihomo.gz
+          gunzip mihomo.gz
+          chmod +x mihomo
+          ./mihomo -v
+
+      - name: 自动发现 + 聚合 + 测速
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXTRA_SUBS: ${{ secrets.EXTRA_SUBS }}
+        run: |
+          cat << 'EOF' > collect.py
+          import os, base64, json, time, socket, asyncio, subprocess
+          import urllib.request, urllib.parse
+          import yaml
+          from collections import defaultdict
+          from urllib.parse import urlparse, unquote, parse_qs
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+
+          # ================================================================
+          # 参数
+          # ================================================================
+          # GitHub 搜索
+          SEARCH_MAX_REPOS       = 30    # 最多发现多少个仓库
+          SEARCH_MAX_FILES       = 80    # 最多下载多少个文件
+          SEARCH_API_DELAY       = 1.2   # 每次 API 请求后等待(秒)
+          FILES_PER_REPO         = 5     # 每个仓库最多取多少文件
+
+          # 测速
+          TCP_CONCURRENCY        = 500
+          TCP_TIMEOUT            = 1.5
+          HTTP_CANDIDATES        = 500   # TCP 存活后取多少个做 HTTP 测速
+          HTTP_PER_SOURCE        = 40    # 每个来源最多贡献多少 HTTP 候选（公平采样）
+          HTTP_CONCURRENCY       = 50
+          HTTP_TIMEOUT_MS        = 5000
+          TOP_N                  = 100
+
+          MIHOMO_API             = "http://127.0.0.1:9090"
+          MIHOMO_SECRET          = "AutoCollect2025"
+
+          PREFIXES = ('vmess://', 'vless://', 'trojan://', 'ss://',
+                      'hysteria2://', 'hy2://', 'tuic://')
+
+          # ================================================================
+          # GitHub 搜索策略
+          # ================================================================
+
+          # 1. 仓库关键词搜索
+          REPO_SEARCH_QUERIES = [
+              '免费节点 clash vmess vless 订阅',
+              'free proxy nodes clash subscription auto update',
+              'clash free node subscription vmess vless trojan',
+              'v2ray free nodes subscription auto',
+              'proxy nodes clash yaml auto update',
+          ]
+
+          # 2. 话题搜索
+          REPO_TOPICS = [
+              'clash-subscription',
+              'free-node',
+              'proxy-list',
+              'v2ray-nodes',
+              'clash-config',
+          ]
+
+          # 3. 在仓库里查找节点文件时尝试的路径
+          KNOWN_FILE_NAMES = [
+              'sub.yaml', 'sub.yml', 'sub.txt',
+              'clash.yaml', 'clash.yml',
+              'config.yaml', 'nodes.yaml', 'proxy.yaml',
+              'all.yaml', 'merged.yaml', 'output.yaml',
+              'nodes.txt', 'proxy.txt', 'all.txt',
+          ]
+
+          KNOWN_FOLDERS = [
+              '', 'clash', 'sub', 'config',
+              'nodes', 'proxy', 'output', 'result',
+          ]
+
+          # ================================================================
+          # 基础工具
+          # ================================================================
+
+          def gh_request(url, token, timeout=15):
+              """带 GitHub Token 的 API 请求"""
+              headers = {
+                  'User-Agent': 'Mozilla/5.0',
+                  'Accept': 'application/vnd.github+json',
+                  'Authorization': f'Bearer {token}',
+                  'X-GitHub-Api-Version': '2022-11-28',
+              }
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return json.loads(r.read())
+
+          def fetch_raw(url, timeout=30):
+              """下载原始文件内容"""
+              try:
+                  headers = {'User-Agent': 'Mozilla/5.0'}
+                  req = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(req, timeout=timeout) as r:
+                      return r.read()
+              except Exception as e:
+                  return None
+
+          def b64d(s):
+              s = s.strip().replace('-', '+').replace('_', '/')
+              return base64.b64decode(s + '=' * (-len(s) % 4))
+
+          def decode_content(data):
+              """bytes → 字符串，自动处理 base64"""
+              if not data:
+                  return ''
+              text = data.decode('utf-8', errors='ignore').strip()
+              if '://' not in text[:200]:
+                  try:
+                      return base64.b64decode(text + '===').decode('utf-8')
+                  except Exception:
+                      pass
+              return text
+
+          # ================================================================
+          # Clash YAML ↔ 节点链接 互转
+          # ================================================================
+
+          def clash_to_link(px):
+              """Clash 代理字典 → 节点链接"""
+              try:
+                  t = px.get('type', '').lower()
+                  name_q = urllib.parse.quote(str(px.get('name', '')))
+
+                  if t == 'vmess':
+                      info = {
+                          'v': '2', 'ps': px.get('name', ''),
+                          'add': px['server'], 'port': str(px['port']),
+                          'id': px.get('uuid', ''), 'aid': str(px.get('alterId', 0)),
+                          'net': px.get('network', 'tcp'), 'type': 'none',
+                          'tls': 'tls' if px.get('tls') else '',
+                          'sni': px.get('servername', ''),
+                      }
+                      if px.get('network') == 'ws':
+                          opts = px.get('ws-opts', {})
+                          info['path'] = opts.get('path', '/')
+                          info['host'] = (opts.get('headers') or {}).get('Host', '')
+                      elif px.get('network') == 'grpc':
+                          info['path'] = (px.get('grpc-opts') or {}).get('grpc-service-name', '')
+                      return 'vmess://' + base64.b64encode(json.dumps(info).encode()).decode()
+
+                  if t == 'vless':
+                      params = {'encryption': 'none', 'type': px.get('network', 'tcp')}
+                      sec = 'none'
+                      if px.get('tls'): sec = 'tls'
+                      ro = px.get('reality-opts', {})
+                      if ro: sec = 'reality'
+                      if sec != 'none': params['security'] = sec
+                      if px.get('servername'): params['sni'] = px['servername']
+                      if px.get('client-fingerprint'): params['fp'] = px['client-fingerprint']
+                      if ro:
+                          params['pbk'] = ro.get('public-key', '')
+                          params['sid'] = ro.get('short-id', '')
+                      if px.get('flow'): params['flow'] = px['flow']
+                      if px.get('network') == 'ws':
+                          opts = px.get('ws-opts', {})
+                          params['path'] = opts.get('path', '/')
+                          params['host'] = (opts.get('headers') or {}).get('Host', '')
+                      elif px.get('network') == 'grpc':
+                          params['serviceName'] = (px.get('grpc-opts') or {}).get('grpc-service-name', '')
+                      q = urllib.parse.urlencode(params)
+                      return f"vless://{px.get('uuid','')}@{px['server']}:{px['port']}?{q}#{name_q}"
+
+                  if t == 'trojan':
+                      params = {}
+                      if px.get('sni'): params['sni'] = px['sni']
+                      if px.get('skip-cert-verify'): params['allowInsecure'] = '1'
+                      net = px.get('network', 'tcp')
+                      if net != 'tcp':
+                          params['type'] = net
+                          if net == 'ws':
+                              opts = px.get('ws-opts', {})
+                              params['path'] = opts.get('path', '/')
+                              params['host'] = (opts.get('headers') or {}).get('Host', '')
+                      q = urllib.parse.urlencode(params)
+                      return f"trojan://{px.get('password','')}@{px['server']}:{px['port']}?{q}#{name_q}"
+
+                  if t == 'ss':
+                      method, pwd = px.get('cipher', ''), px.get('password', '')
+                      userinfo = base64.b64encode(f'{method}:{pwd}'.encode()).decode()
+                      return f"ss://{userinfo}@{px['server']}:{px['port']}#{name_q}"
+
+                  if t == 'hysteria2':
+                      params = {}
+                      if px.get('sni'): params['sni'] = px['sni']
+                      if px.get('skip-cert-verify'): params['insecure'] = '1'
+                      if px.get('obfs'): params['obfs'] = px['obfs']
+                      if px.get('obfs-password'): params['obfs-password'] = px['obfs-password']
+                      q = urllib.parse.urlencode(params)
+                      return f"hysteria2://{px.get('password','')}@{px['server']}:{px['port']}?{q}#{name_q}"
+
+                  if t == 'tuic':
+                      params = {}
+                      if px.get('sni'): params['sni'] = px['sni']
+                      alpn = px.get('alpn', [])
+                      if alpn: params['alpn'] = alpn[0]
+                      if px.get('skip-cert-verify'): params['allow_insecure'] = '1'
+                      q = urllib.parse.urlencode(params)
+                      return (f"tuic://{px.get('uuid','')}:{px.get('password','')}@"
+                              f"{px['server']}:{px['port']}?{q}#{name_q}")
+              except Exception:
+                  pass
+              return None
+
+          def extract_nodes_from_content(content):
+              """从任意格式内容中提取节点链接（明文 / base64 / Clash YAML）"""
+              if not content:
+                  return []
+
+              # 尝试 Clash YAML
+              stripped = content.lstrip()
+              if any(stripped.startswith(k) for k in
+                     ('proxies:', 'Proxies:', 'mixed-port:', 'port:', 'rules:')):
+                  nodes = _parse_clash_yaml(content)
+                  if nodes:
+                      return nodes
+
+              # 明文链接
+              nodes = [l.strip() for l in content.splitlines()
+                       if l.strip() and any(l.strip().startswith(p) for p in PREFIXES)]
+              if nodes:
+                  return nodes
+
+              # base64 解码后再试
+              try:
+                  decoded = b64d(content.strip()).decode('utf-8')
+                  if any(decoded.lstrip().startswith(k) for k in ('proxies:', 'Proxies:')):
+                      nodes = _parse_clash_yaml(decoded)
+                      if nodes:
+                          return nodes
+                  return [l.strip() for l in decoded.splitlines()
+                          if l.strip() and any(l.strip().startswith(p) for p in PREFIXES)]
+              except Exception:
+                  pass
+              return []
+
+          def _parse_clash_yaml(text):
+              try:
+                  data = yaml.safe_load(text)
+                  if not isinstance(data, dict):
+                      return []
+                  proxies = data.get('proxies') or data.get('Proxies') or []
+                  if not isinstance(proxies, list):
+                      return []
+                  return [l for l in (clash_to_link(px) for px in proxies) if l]
+              except Exception:
+                  return []
+
+          # ================================================================
+          # GitHub 自动发现
+          # ================================================================
+
+          def search_repos_by_keyword(token, query, per_page=10):
+              url = ('https://api.github.com/search/repositories'
+                     f'?q={urllib.parse.quote(query)}+is:public'
+                     f'&sort=updated&order=desc&per_page={per_page}')
+              try:
+                  data = gh_request(url, token)
+                  return data.get('items', [])
+              except Exception as e:
+                  print(f"    关键词搜索失败: {e}")
+                  return []
+
+          def search_repos_by_topic(token, topic, per_page=10):
+              url = ('https://api.github.com/search/repositories'
+                     f'?q=topic:{topic}+is:public'
+                     f'&sort=updated&order=desc&per_page={per_page}')
+              try:
+                  data = gh_request(url, token)
+                  return data.get('items', [])
+              except Exception as e:
+                  print(f"    话题搜索失败: {e}")
+                  return []
+
+          def list_repo_contents(token, full_name, path=''):
+              url = f'https://api.github.com/repos/{full_name}/contents/{path}'
+              try:
+                  return gh_request(url, token, timeout=10)
+              except Exception:
+                  return []
+
+          def find_node_files_in_repo(token, repo):
+              """在仓库里找节点文件，返回 [(raw_url, label), ...]"""
+              full_name = repo['full_name']
+              branch = repo.get('default_branch', 'main')
+              result = []
+
+              # 列出根目录
+              root_items = list_repo_contents(token, full_name, '')
+              time.sleep(0.3)
+              if not isinstance(root_items, list):
+                  return result
+
+              root_files = {}   # name.lower() -> item
+              root_dirs  = {}
+              for item in root_items:
+                  n = item['name'].lower()
+                  if item['type'] == 'file':
+                      root_files[n] = item
+                  elif item['type'] == 'dir':
+                      root_dirs[n] = item
+
+              def is_node_file(name):
+                  n = name.lower()
+                  if not n.endswith(('.yaml', '.yml', '.txt')):
+                      return False
+                  # 日期命名（2025-07-01.yaml）
+                  if len(n) >= 10 and n[:4].isdigit() and n[4] in ('-', '_'):
+                      return True
+                  # 关键词命名
+                  keywords = ('sub', 'clash', 'node', 'proxy', 'config',
+                              'merged', 'all', 'output', 'result', 'free')
+                  return any(k in n for k in keywords)
+
+              def add_file(item, folder=''):
+                  label = f"github:{full_name}/{folder}{item['name']}"
+                  result.append((item['download_url'], label))
+
+              # 根目录文件
+              date_files = sorted(
+                  [it for n, it in root_files.items() if is_node_file(n)],
+                  key=lambda x: x['name'], reverse=True
+              )
+              for it in date_files[:FILES_PER_REPO]:
+                  add_file(it)
+
+              if len(result) >= FILES_PER_REPO:
+                  return result[:FILES_PER_REPO]
+
+              # 常见子目录
+              for dname in KNOWN_FOLDERS[1:]:   # 跳过空字符串（根目录已处理）
+                  if len(result) >= FILES_PER_REPO:
+                      break
+                  if dname not in root_dirs:
+                      continue
+                  sub_items = list_repo_contents(token, full_name, root_dirs[dname]['name'])
+                  time.sleep(0.3)
+                  if not isinstance(sub_items, list):
+                      continue
+                  yaml_files = sorted(
+                      [it for it in sub_items
+                       if it['type'] == 'file' and is_node_file(it['name'])],
+                      key=lambda x: x['name'], reverse=True
+                  )
+                  for it in yaml_files[:3]:
+                      add_file(it, folder=f"{root_dirs[dname]['name']}/")
+                  if yaml_files:
+                      time.sleep(0.3)
+
+              return result[:FILES_PER_REPO]
+
+          def discover_all_sources(token, my_repo):
+              """搜索所有来源，返回 {raw_url: label}"""
+              if not token:
+                  print("⚠️  未检测到 GITHUB_TOKEN，跳过 GitHub 自动发现")
+                  return {}
+
+              print("🔍 开始 GitHub 自动发现...\n")
+
+              # 收集候选仓库（去重）
+              repo_map = {}   # full_name -> repo_info
+
+              def add_repos(items):
+                  for r in items:
+                      fn = r['full_name']
+                      if fn == my_repo: continue
+                      if fn not in repo_map:
+                          repo_map[fn] = {
+                              'full_name': fn,
+                              'default_branch': r.get('default_branch', 'main'),
+                              'stars': r.get('stargazers_count', 0),
+                              'updated_at': r.get('updated_at', ''),
+                          }
+
+              print("  [1/2] 关键词搜索仓库...")
+              for q in REPO_SEARCH_QUERIES:
+                  if len(repo_map) >= SEARCH_MAX_REPOS: break
+                  items = search_repos_by_keyword(token, q, per_page=8)
+                  add_repos(items)
+                  print(f"    \"{q[:35]}...\" → {len(items)} 个仓库")
+                  time.sleep(SEARCH_API_DELAY)
+
+              print(f"\n  [2/2] 话题搜索仓库...")
+              for topic in REPO_TOPICS:
+                  if len(repo_map) >= SEARCH_MAX_REPOS: break
+                  items = search_repos_by_topic(token, topic, per_page=8)
+                  add_repos(items)
+                  print(f"    topic:{topic} → {len(items)} 个仓库")
+                  time.sleep(SEARCH_API_DELAY)
+
+              # 按 star + 更新时间排序
+              repos = sorted(repo_map.values(),
+                             key=lambda x: (x['stars'], x['updated_at']),
+                             reverse=True)
+              print(f"\n  共发现 {len(repos)} 个候选仓库，开始扫描文件...\n")
+
+              # 在每个仓库里找节点文件
+              all_sources = {}   # raw_url -> label
+              for repo in repos:
+                  if len(all_sources) >= SEARCH_MAX_FILES: break
+                  fn = repo['full_name']
+                  files = find_node_files_in_repo(token, repo)
+                  if files:
+                      print(f"  ✓ {fn} (⭐{repo['stars']}) → {len(files)} 个文件")
+                      for url, label in files:
+                          if url and url not in all_sources:
+                              all_sources[url] = label
+                  else:
+                      print(f"  - {fn} → 未找到节点文件")
+                  time.sleep(SEARCH_API_DELAY)
+
+              print(f"\n✅ GitHub 发现: {len(all_sources)} 个节点文件\n")
+              return all_sources
+
+          # ================================================================
+          # host:port 解析（TCP ping 分组用）
+          # ================================================================
+
+          def get_host_port(link):
+              try:
+                  if link.startswith('vmess://'):
+                      info = json.loads(b64d(link[8:]).decode('utf-8', errors='ignore'))
+                      return info.get('add'), int(info.get('port'))
+                  p = urlparse(link)
+                  if p.hostname and p.port:
+                      return p.hostname, p.port
+                  if link.startswith('ss://'):
+                      body = link[5:].split('#')[0]
+                      dec = b64d(body).decode('utf-8', errors='ignore')
+                      if '@' in dec:
+                          h, port = dec.rsplit('@', 1)[1].split(':')
+                          return h, int(port)
+              except Exception:
+                  pass
+              return None, None
+
+          # ================================================================
+          # Stage 1: asyncio TCP ping
+          # ================================================================
+
+          async def tcp_ping(host, port, sem):
+              async with sem:
+                  try:
+                      t0 = time.monotonic()
+                      r, w = await asyncio.wait_for(
+                          asyncio.open_connection(host, port), timeout=TCP_TIMEOUT)
+                      delay = round((time.monotonic() - t0) * 1000, 1)
+                      w.close()
+                      try: await w.wait_closed()
+                      except Exception: pass
+                      return delay
+                  except Exception:
+                      return None
+
+          async def run_tcp_stage(server_list):
+              sem = asyncio.Semaphore(TCP_CONCURRENCY)
+              tasks = [tcp_ping(h, p, sem) for h, p in server_list]
+              results = []
+              CHUNK = 1000
+              done = 0
+              for i in range(0, len(tasks), CHUNK):
+                  batch = await asyncio.gather(*tasks[i:i+CHUNK])
+                  results.extend(batch)
+                  done += len(batch)
+                  alive = sum(1 for x in results if x is not None)
+                  print(f"  进度 {done}/{len(tasks)}，存活 {alive}")
+              return results
+
+          # ================================================================
+          # Stage 2: mihomo HTTP 真实测速
+          # ================================================================
+
+          def mihomo_delay(name):
+              encoded = urllib.parse.quote(name, safe='')
+              url = (f"{MIHOMO_API}/proxies/{encoded}/delay"
+                     f"?url=http://cp.cloudflare.com/generate_204"
+                     f"&timeout={HTTP_TIMEOUT_MS}")
+              req = urllib.request.Request(url)
+              req.add_header('Authorization', f'Bearer {MIHOMO_SECRET}')
+              try:
+                  with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT_MS/1000 + 3) as r:
+                      return json.loads(r.read()).get('delay')
+              except Exception:
+                  return None
+
+          def run_http_stage(proxy_names):
+              results = {}
+              done = 0
+              total = len(proxy_names)
+              with ThreadPoolExecutor(max_workers=HTTP_CONCURRENCY) as pool:
+                  futures = {pool.submit(mihomo_delay, n): n for n in proxy_names}
+                  for fut in as_completed(futures):
+                      name = futures[fut]
+                      results[name] = fut.result()
+                      done += 1
+                      if done % 50 == 0 or done == total:
+                          ok = sum(1 for v in results.values() if v)
+                          print(f"  进度 {done}/{total}，可用 {ok}")
+              return results
+
+          # ================================================================
+          # 节点链接 → Clash 代理字典
+          # ================================================================
+
+          def safe_name(raw, used):
+              name = (raw or '').strip() or '节点'
+              base, i = name, 2
+              while name in used:
+                  name = f'{base}-{i}'; i += 1
+              used.add(name)
+              return name
+
+          def pqs(link):
+              p = urlparse(link)
+              q = {k: v[0] for k, v in parse_qs(p.query).items()}
+              return p, q, unquote(p.fragment)
+
+          def vmess_proxy(link, used):
+              try:
+                  info = json.loads(b64d(link[8:]).decode('utf-8', errors='ignore'))
+                  name = safe_name(unquote(str(info.get('ps', 'vmess'))), used)
+                  px = {'name': name, 'type': 'vmess',
+                        'server': info['add'], 'port': int(info['port']),
+                        'uuid': info['id'], 'alterId': int(info.get('aid', 0) or 0),
+                        'cipher': info.get('scy') or 'auto', 'udp': True}
+                  net = info.get('net', 'tcp')
+                  if net != 'tcp': px['network'] = net
+                  if info.get('tls') in ('tls', 'reality'):
+                      px['tls'] = True
+                      if info.get('sni'): px['servername'] = info['sni']
+                  if net == 'ws':
+                      px['ws-opts'] = {'path': info.get('path') or '/',
+                                       'headers': {'Host': info['host']} if info.get('host') else {}}
+                  elif net == 'grpc':
+                      px['grpc-opts'] = {'grpc-service-name': info.get('path') or ''}
+                  return px
+              except Exception: return None
+
+          def vless_proxy(link, used):
+              try:
+                  p, q, frag = pqs(link)
+                  if not (p.hostname and p.port and p.username): return None
+                  name = safe_name(frag or 'vless', used)
+                  px = {'name': name, 'type': 'vless', 'server': p.hostname,
+                        'port': p.port, 'uuid': p.username, 'udp': True}
+                  net = q.get('type', 'tcp')
+                  if net != 'tcp': px['network'] = net
+                  sec = q.get('security', 'none')
+                  if sec in ('tls', 'reality'):
+                      px['tls'] = True
+                      if q.get('sni'): px['servername'] = q['sni']
+                      if q.get('fp'):  px['client-fingerprint'] = q['fp']
+                      if sec == 'reality':
+                          px['reality-opts'] = {'public-key': q.get('pbk', ''), 'short-id': q.get('sid', '')}
+                  if q.get('flow'): px['flow'] = q['flow']
+                  if net == 'ws':
+                      px['ws-opts'] = {'path': unquote(q.get('path', '/')),
+                                       'headers': {'Host': q['host']} if q.get('host') else {}}
+                  elif net == 'grpc':
+                      px['grpc-opts'] = {'grpc-service-name': q.get('serviceName', '')}
+                  return px
+              except Exception: return None
+
+          def trojan_proxy(link, used):
+              try:
+                  p, q, frag = pqs(link)
+                  if not (p.hostname and p.port and p.username): return None
+                  name = safe_name(frag or 'trojan', used)
+                  px = {'name': name, 'type': 'trojan', 'server': p.hostname,
+                        'port': p.port, 'password': p.username, 'udp': True}
+                  sni = q.get('sni') or q.get('peer')
+                  if sni: px['sni'] = sni
+                  if q.get('allowInsecure') == '1' or q.get('insecure') == '1':
+                      px['skip-cert-verify'] = True
+                  net = q.get('type', 'tcp')
+                  if net == 'ws':
+                      px['network'] = 'ws'
+                      px['ws-opts'] = {'path': unquote(q.get('path', '/')),
+                                       'headers': {'Host': q['host']} if q.get('host') else {}}
+                  elif net == 'grpc':
+                      px['network'] = 'grpc'
+                      px['grpc-opts'] = {'grpc-service-name': q.get('serviceName', '')}
+                  return px
+              except Exception: return None
+
+          def ss_proxy(link, used):
+              try:
+                  p, q, frag = pqs(link)
+                  method = password = None
+                  host, port = p.hostname, p.port
+                  if p.username and host and port:
+                      try:
+                          ui = b64d(unquote(p.username)).decode('utf-8', errors='ignore')
+                          method, password = ui.split(':', 1)
+                      except Exception:
+                          if ':' in unquote(p.username):
+                              method, password = unquote(p.username).split(':', 1)
+                  if not (method and password and host and port):
+                      body = link[5:].split('#')[0]
+                      dec = b64d(body).decode('utf-8', errors='ignore')
+                      mp, hp = dec.rsplit('@', 1)
+                      method, password = mp.split(':', 1)
+                      host, port = hp.split(':')
+                      port = int(port)
+                  name = safe_name(frag or 'ss', used)
+                  return {'name': name, 'type': 'ss', 'server': host, 'port': int(port),
+                          'cipher': method, 'password': password, 'udp': True}
+              except Exception: return None
+
+          def hy2_proxy(link, used):
+              try:
+                  p, q, frag = pqs(link)
+                  if not (p.hostname and p.port): return None
+                  name = safe_name(frag or 'hy2', used)
+                  px = {'name': name, 'type': 'hysteria2', 'server': p.hostname, 'port': p.port,
+                        'password': unquote(p.username) if p.username else q.get('auth', ''),
+                        'udp': True}
+                  sni = q.get('sni') or q.get('peer')
+                  if sni: px['sni'] = sni
+                  if q.get('insecure') == '1': px['skip-cert-verify'] = True
+                  if q.get('obfs'):
+                      px['obfs'] = q['obfs']
+                      px['obfs-password'] = q.get('obfs-password', '')
+                  return px
+              except Exception: return None
+
+          def tuic_proxy(link, used):
+              try:
+                  p, q, frag = pqs(link)
+                  if not (p.hostname and p.port): return None
+                  name = safe_name(frag or 'tuic', used)
+                  px = {'name': name, 'type': 'tuic', 'server': p.hostname, 'port': p.port, 'udp': True}
+                  if p.username and p.password:
+                      px['uuid'], px['password'] = p.username, p.password
+                  else:
+                      px['uuid'] = p.username or q.get('uuid', '')
+                      px['password'] = q.get('password', '')
+                  if q.get('sni'):  px['sni'] = q['sni']
+                  if q.get('alpn'): px['alpn'] = [q['alpn']]
+                  if q.get('allow_insecure') == '1': px['skip-cert-verify'] = True
+                  return px
+              except Exception: return None
+
+          def to_clash(link, used):
+              if link.startswith('vmess://'): return vmess_proxy(link, used)
+              if link.startswith('vless://'): return vless_proxy(link, used)
+              if link.startswith('trojan://'): return trojan_proxy(link, used)
+              if link.startswith('ss://'): return ss_proxy(link, used)
+              if link.startswith('hysteria2://') or link.startswith('hy2://'): return hy2_proxy(link, used)
+              if link.startswith('tuic://'): return tuic_proxy(link, used)
+              return None
+
+          # ================================================================
+          # 主逻辑
+          # ================================================================
+
+          def main():
+              token    = os.getenv('GITHUB_TOKEN', '')
+              my_repo  = os.getenv('GITHUB_REPOSITORY', '')
+              extra    = os.getenv('EXTRA_SUBS', '')   # 可选：手动补充的订阅 URL
+
+              # --- 1. GitHub 自动发现 ---
+              github_sources = discover_all_sources(token, my_repo)
+
+              # --- 2. 可选的手动订阅 ---
+              extra_sources = {}
+              for u in extra.splitlines():
+                  u = u.strip()
+                  if u:
+                      extra_sources[u] = '手动订阅'
+
+              all_sources = {**github_sources, **extra_sources}
+              print(f"📦 总来源: {len(github_sources)} GitHub自动 + {len(extra_sources)} 手动 = {len(all_sources)} 个\n")
+
+              # --- 3. 并发下载所有文件 ---
+              print("⬇️  并发下载节点文件...")
+              url_list = list(all_sources.keys())
+              with ThreadPoolExecutor(max_workers=min(30, len(url_list) or 1)) as pool:
+                  raws = list(pool.map(fetch_raw, url_list))
+
+              # --- 4. 解析节点，记录来源 ---
+              seen_links = {}   # link -> label
+              src_node_counts = defaultdict(int)
+
+              for url, raw in zip(url_list, raws):
+                  if not raw: continue
+                  label = all_sources[url]
+                  content = decode_content(raw)
+                  nodes = extract_nodes_from_content(content)
+                  src_node_counts[label] += len(nodes)
+                  for n in nodes:
+                      if n not in seen_links:
+                          seen_links[n] = label
+
+              unique_nodes = list(seen_links.keys())
+              print(f"\n✅ 节点总计: 去重后 {len(unique_nodes)} 个")
+              print("各来源贡献：")
+              for label, cnt in sorted(src_node_counts.items(), key=lambda x: -x[1])[:20]:
+                  print(f"  {cnt:6d} 个 ← {label}")
+              if len(src_node_counts) > 20:
+                  print(f"  ... 共 {len(src_node_counts)} 个来源")
+
+              if not unique_nodes:
+                  print("❌ 没有获取到任何节点，退出")
+                  return
+
+              # --- 5. 按 host:port 分组 ---
+              server_to_links = {}
+              for link in unique_nodes:
+                  h, p = get_host_port(link)
+                  if not h or not p: continue
+                  key = (h.lower(), p)
+                  server_to_links.setdefault(key, []).append(link)
+
+              all_servers = list(server_to_links.keys())
+              print(f"\n唯一服务器(host:port): {len(all_servers)} 个")
+
+              # --- 6. Stage 1: 全量 TCP ping ---
+              print(f"\n🔌 Stage 1 TCP ping（{len(all_servers)} 个服务器，{TCP_CONCURRENCY} 并发）...")
+              t0 = time.time()
+              delays = asyncio.run(run_tcp_stage(all_servers))
+              print(f"   用时 {round(time.time()-t0, 1)}s")
+
+              alive = [(all_servers[i], delays[i])
+                       for i in range(len(all_servers)) if delays[i] is not None]
+              alive.sort(key=lambda x: x[1])
+              print(f"✅ TCP 存活: {len(alive)}/{len(all_servers)}\n")
+
+              # --- 7. 按来源公平采样 ---
+              sub_buckets = defaultdict(list)
+              for server_key, _ in alive:
+                  for link in server_to_links[server_key]:
+                      src = seen_links.get(link, 'unknown')
+                      sub_buckets[src].append(link)
+                      break
+
+              print(f"公平采样（每来源最多 {HTTP_PER_SOURCE} 个，共取 {HTTP_CANDIDATES} 个）...")
+              tcp_candidates = []
+              seen_c = set()
+              sub_iters = {src: iter(links) for src, links in sub_buckets.items()}
+              sub_counts = defaultdict(int)
+
+              while len(tcp_candidates) < HTTP_CANDIDATES and sub_iters:
+                  exhausted = []
+                  for src in list(sub_iters.keys()):
+                      if len(tcp_candidates) >= HTTP_CANDIDATES: break
+                      if sub_counts[src] >= HTTP_PER_SOURCE:
+                          exhausted.append(src); continue
+                      try:
+                          link = next(sub_iters[src])
+                          if link not in seen_c:
+                              tcp_candidates.append(link)
+                              seen_c.add(link)
+                              sub_counts[src] += 1
+                      except StopIteration:
+                          exhausted.append(src)
+                  for src in exhausted:
+                      sub_iters.pop(src, None)
+                  if not sub_iters: break
+
+              print(f"HTTP 候选: {len(tcp_candidates)} 个（来自 {len(sub_counts)} 个来源）")
+
+              # --- 8. Stage 2: mihomo HTTP 测速 ---
+              print(f"\n🌐 Stage 2 真实 HTTP 测速（{len(tcp_candidates)} 个节点）...")
+              used_names = set()
+              name_to_link = {}
+              clash_proxies = []
+              for link in tcp_candidates:
+                  px = to_clash(link, used_names)
+                  if px:
+                      name_to_link[px['name']] = link
+                      clash_proxies.append(px)
+
+              os.makedirs('mihomo_home', exist_ok=True)
+              cfg = {
+                  'mixed-port': 7888,
+                  'external-controller': '127.0.0.1:9090',
+                  'secret': MIHOMO_SECRET,
+                  'log-level': 'silent',
+                  'mode': 'direct',
+                  'ipv6': False,
+                  'geo-auto-update': False,
+                  'proxies': clash_proxies,
+                  'proxy-groups': [],
+                  'rules': [],
+              }
+              with open('mihomo_home/config.yaml', 'w', encoding='utf-8') as f:
+                  yaml.dump(cfg, f, allow_unicode=True, sort_keys=False)
+
+              proc = subprocess.Popen(
+                  ['./mihomo', '-d', 'mihomo_home'],
+                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+              ready = False
+              for _ in range(40):
+                  try:
+                      s = socket.create_connection(('127.0.0.1', 9090), timeout=0.5)
+                      s.close(); ready = True; break
+                  except Exception:
+                      time.sleep(0.3)
+
+              best_links = []
+              if not ready:
+                  print("⚠️  mihomo 启动超时，降级使用 TCP 结果")
+                  best_links = tcp_candidates[:TOP_N]
+              else:
+                  time.sleep(0.5)
+                  t0 = time.time()
+                  http_results = run_http_stage(list(name_to_link.keys()))
+                  print(f"   用时 {round(time.time()-t0, 1)}s")
+                  proc.terminate()
+
+                  ok = [(n, d) for n, d in http_results.items() if d]
+                  ok.sort(key=lambda x: x[1])
+                  print(f"✅ HTTP 可用: {len(ok)}/{len(clash_proxies)}")
+
+                  best_links = [name_to_link[n] for n, _ in ok[:TOP_N]]
+
+                  # 不足 TOP_N 时补足
+                  if len(best_links) < TOP_N:
+                      tested = set(best_links)
+                      for link in tcp_candidates + unique_nodes:
+                          if len(best_links) >= TOP_N: break
+                          if link not in tested:
+                              best_links.append(link); tested.add(link)
+
+              # --- 9. 输出订阅文件 ---
+              combined = '\n'.join(best_links)
+              with open('sub.txt', 'w') as f:
+                  f.write(base64.b64encode(combined.encode()).decode())
+              with open('sub_plain.txt', 'w') as f:
+                  f.write(combined)
+
+              used2 = set()
+              proxies_out = [px for px in (to_clash(l, used2) for l in best_links) if px]
+              names_out   = [p['name'] for p in proxies_out]
+              clash_out = {
+                  'mixed-port': 7890, 'allow-lan': False,
+                  'mode': 'rule', 'log-level': 'info',
+                  'proxies': proxies_out,
+                  'proxy-groups': [
+                      {'name': '🚀 节点选择', 'type': 'select',
+                       'proxies': ['♻️ 自动选择', 'DIRECT'] + names_out},
+                      {'name': '♻️ 自动选择', 'type': 'url-test',
+                       'url': 'https://www.gstatic.com/generate_204',
+                       'interval': 300, 'proxies': names_out},
+                  ],
+                  'rules': ['MATCH,🚀 节点选择'],
+              }
+              with open('sub.yaml', 'w', encoding='utf-8') as f:
+                  yaml.dump(clash_out, f, allow_unicode=True, sort_keys=False)
+
+              print(f"\n✅ 最终输出 {len(best_links)} 个节点（{len(proxies_out)} 个转换为 Clash 格式）")
+              print("订阅文件：sub.txt / sub_plain.txt / sub.yaml")
+
+          if __name__ == '__main__':
+              main()
+          EOF
+
+          python3 collect.py
+
+      - name: 提交更新
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -f sub.txt ] && [ -f sub.yaml ]; then
+            git add sub.txt sub_plain.txt sub.yaml
+            if git diff --cached --quiet; then
+              echo "没有新变化"
+            else
+              git commit -m "Auto collect Best 100 nodes $(date '+%Y-%m-%d %H:%M:%S UTC')"
+              git push
+              echo "✅ 成功推送！"
+            fi
+          else
+            echo "❌ 未生成订阅文件"
+            exit 1
+          fi
