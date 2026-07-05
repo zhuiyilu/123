@@ -3,628 +3,92 @@ allow-lan: false
 mode: rule
 log-level: info
 proxies:
-- name: By EbraSha 🧲
+- name: 5 𝗝𝗼𝗶𝗻 ➠ @MoOon_proxy
   type: vless
-  server: 151.101.129.164
+  server: 151.101.193.57
   port: 80
-  uuid: '%40Vpn1_v2rayNG'
-  udp: true
-  network: xhttp
-- name: By EbraSha 🥷
-  type: trojan
-  server: 151.101.101.101
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-104.19.159.6-1076
-  type: trojan
-  server: 104.19.159.6
-  port: 443
-  password: b0b861c2c85346a389b9e95769c3cba4
-  udp: true
-  sni: jobscareerforstudent.com
-  network: ws
-  ws-opts:
-    path: '%25252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252F6b777a91'
-    headers:
-      Host: jobscareerforstudent.com
-- name: By EbraSha 🕹️
-  type: vmess
-  server: 104.21.23.231
-  port: 2095
-  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
-  alterId: 0
-  cipher: auto
+  uuid: 4fb30f87-a9c2-43de-994f-9228fe4dac17
   udp: true
   network: ws
   ws-opts:
     path: /
     headers:
-      Host: onea.flha.ru
-- name: By EbraSha ✨
-  type: ss
-  server: 88.210.36.107
-  port: 2377
-  cipher: chacha20-ietf-poly1305
-  password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
-  udp: true
-- name: 🇺🇸US_1508|2.5MB/s|M002-260618
-  type: vmess
-  server: 173.249.209.146
-  port: 20086
-  uuid: 3935c2dc-dbb0-43f7-b367-fe89abe87fdf
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers: {}
-- name: 塞舌尔/Seychelles-12
+      Host: superip2.global.ssl.fastly.net
+- name: By EbraSha 🪐
   type: vless
-  server: 45.130.125.158
-  port: 2053
-  uuid: e7961655-9674-4cbd-a36f-ec0d5d7d660c
+  server: 104.156.81.153
+  port: 443
+  uuid: 89b3cbba-e6ac-485a-9481-976a0415eab9
   udp: true
   network: ws
   tls: true
-  servername: po.fastbrokencompony.com
+  servername: behdasht.hrtc.ir
+  client-fingerprint: randomized
   ws-opts:
-    path: /
+    path: /H?ed=2560
     headers:
-      Host: po.fastbrokencompony.com
-- name: 🇯🇵JP-172.111.146.64-0114
-  type: vmess
-  server: 172.111.146.64
-  port: 80
-  uuid: 05b8c783-7f59-47f9-9923-06a465679f6a
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers: {}
-- name: end-gfw.com22@kr64
-  type: vless
-  server: 13.125.5.56
-  port: 8686
-  uuid: 1a17b19d-4896-4531-af79-6e91d8ef8228
-  udp: true
-  tls: true
-  servername: www.apple.com
-  client-fingerprint: chrome
-  reality-opts:
-    public-key: A3NXnUIT-W0m1Y_leRnv5so2IeCvk9FCFgL31PulfTw
-    short-id: 628b3c90c98ead4f
-- name: hy2
-  type: hysteria2
-  server: 62.210.124.146
-  port: 22000
-  password: dongtaiwang.com
-  udp: true
-  sni: www.microsoft.com
-  skip-cert-verify: true
-- name: '🇸🇪 SE | TUIC | @vipv2rey #1'
-  type: tuic
-  server: 70.34.197.98
-  port: 443
-  udp: true
-  uuid: 87bc1693-8860-41d7-acf4-e6edf49abbbb
-  password: crivAv10hAdr-fop4Lne
-- name: 🇹🇷 Join+Telegram:@SolVPN 🇹🇷
-  type: ss
-  server: 38.180.113.194
-  port: 8119
-  cipher: aes-256-gcm
-  password: cdBIDV42DCwnfIN
-  udp: true
-- name: By EbraSha ✨-2
-  type: vless
-  server: 167.82.101.126
-  port: 443
-  uuid: 6e7ebc40-58a6-c567-4ae8-51b7605a272b
-  udp: true
-  network: ws
-  tls: true
-  servername: global.fastly.com
-  client-fingerprint: firefox
-  ws-opts:
-    path: /
-    headers:
-      Host: swwwwfgggffffii.global.ssl.fastly.net
-- name: By EbraSha 👾
-  type: trojan
-  server: 151.101.111.111
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-185.18.250.70-9495
-  type: vmess
-  server: 185.18.250.70
-  port: 443
-  uuid: b3a21def-5fcc-47a8-a6a0-a34e29d5288a
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  ws-opts:
-    path: /wss51068
-    headers: {}
-- name: By EbraSha 🚨
-  type: vmess
-  server: 104.21.82.39
-  port: 2052
-  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: mahilu.site
-- name: By EbraSha ✨-3
-  type: ss
-  server: 104.21.13.183
-  port: 443
-  cipher: chacha20-poly1305
-  password: www.v2nodes.com
-  udp: true
-- name: 🇺🇸US_1299|5.2MB/s|R002-260618
-  type: vless
-  server: 162.159.16.180
-  port: 80
-  uuid: df301b32-1152-4526-9a63-beedd93d3156
-  udp: true
-  network: ws
-  ws-opts:
-    path: //?ed=2048
-    headers:
-      Host: vl.dalazhi.cloudns.biz
-- name: 美国/San Francisco/United States/San Francisco-30
-  type: vless
-  server: 104.16.149.244
-  port: 2083
-  uuid: 3c42e466-b045-4c63-9f95-c818dfbcb33e
-  udp: true
-  network: ws
-  tls: true
-  servername: gerdohtz.kavircycle.ir
-  ws-opts:
-    path: /
-    headers:
-      Host: gerdohtz.kavircycle.ir
-- name: 🇫🇷FR-15.237.74.149-3355
-  type: ss
-  server: 15.237.74.149
-  port: 443
-  cipher: aes-256-cfb
-  password: amazonskr05
-  udp: true
-- name: end-gfw.com12@sg89
-  type: vless
-  server: 13.229.154.61
-  port: 8686
-  uuid: 1a17b19d-4896-4531-af79-6e91d8ef8228
-  udp: true
-  tls: true
-  servername: www.apple.com
-  client-fingerprint: chrome
-  reality-opts:
-    public-key: A3NXnUIT-W0m1Y_leRnv5so2IeCvk9FCFgL31PulfTw
-    short-id: 628b3c90c98ead4f
-- name: NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
-  type: hysteria2
-  server: 103.251.167.168
-  port: 443
-  password: gdubbi2zb6gdp0c8
-  udp: true
-  sni: gettestin.xxee.ru
-  obfs: salamander
-  obfs-password: ''
-- name: By EbraSha 🤖
-  type: vless
-  server: 140.248.177.62
-  port: 443
-  uuid: f814efd4-b84c-4ec2-9fc5-9a69d9aac87b
-  udp: true
-  network: ws
-  tls: true
-  servername: ssl.fastly.com
-  ws-opts:
-    path: /
-    headers:
-      Host: bazaryabab.global.ssl.fastly.net
-- name: By EbraSha ⛓️
-  type: trojan
-  server: 151.101.193.193
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560&https://t.me/WangCai2🇨🇳
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-172.64.229.116-9626
-  type: vmess
-  server: 172.64.229.116
-  port: 8880
-  uuid: 4b5e4565-322f-4223-a891-78a84f189726
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /XQ2WCa29jfDMGBcbnQ
-    headers: {}
+      Host: behdasht.hrtc.ir
 - name: By EbraSha 🌍
-  type: vmess
-  server: 172.67.214.33
-  port: 2095
-  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: fcdn.flha.ru
-- name: By EbraSha 🔐
-  type: ss
-  server: 104.192.226.106
-  port: 990
-  cipher: chacha20-ietf-poly1305
-  password: f8f7aCzcPKbsF8p3
-  udp: true
-- name: 🇺🇸US_1222|970KB/s|V007-260618
-  type: vless
-  server: 104.17.122.212
-  port: 443
-  uuid: 77b90f21-d414-43ae-a81d-ab6769649fc4
-  udp: true
-  network: ws
-  tls: true
-  servername: zeus-panel-8hkm7j.zeus-zew7l5.workers.dev
-  client-fingerprint: random
-  ws-opts:
-    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
-    headers:
-      Host: zeus-panel-8hkm7j.zeus-zew7l5.workers.dev
-- name: 美国/United States-13
-  type: vmess
-  server: 216.36.115.182
-  port: 48885
-  uuid: 929f4b3b-60ed-4c7d-e94e-243ee9bbc743
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers: {}
-- name: 🇩🇪DE-185.137.157.149-2245
   type: trojan
-  server: 185.137.157.149
-  port: 443
-  password: dh-Ws-YoJIgTYLZ-A5VljeduVse-vhDl7Q
+  server: 172.66.44.253
+  port: 2087
+  password: JsheihIhuy-7-282+2+
   udp: true
-- name: hy2-2
-  type: hysteria2
-  server: 31.76.28.28
-  port: 443
-  password: 8bc63720-5ec8-45b5-b6a6-9a21ffb490e8
-  udp: true
-  sni: argg5.auragg.org
-- name: By EbraSha 🔌
-  type: vless
-  server: 151.101.2.216
-  port: 80
-  uuid: '%74%65%6c%65%67%72%61%6d%2d%41%72%56%32%72%61%79'
-  udp: true
-  network: ws
-  ws-opts:
-    path: /telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry,telegram-ArV2ry
-    headers:
-      Host: 4.fer68osowk.net
-- name: By EbraSha ♣️
-  type: trojan
-  server: 151.101.194.194
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-162.159.254.44-9663
-  type: vmess
-  server: 162.159.254.44
-  port: 2095
-  uuid: 417d27fb-cb93-3bd8-9bf7-71cd91319821
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /hgcefomn
-    headers: {}
-- name: By EbraSha 🪖
-  type: vmess
-  server: 172.67.152.170
-  port: 2052
-  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: mahilu.site
-- name: By EbraSha 🪬
-  type: ss
-  server: 172.67.198.153
-  port: 443
-  cipher: aes-128-gcm
-  password: a-wym4ovY4Yw
-  udp: true
-- name: 🇺🇸US_1214|1.3MB/s|V003-260618
-  type: vless
-  server: 104.17.137.90
-  port: 2082
-  uuid: 77b90f21-d414-43ae-a81d-ab6769649fc4
-  udp: true
-  network: ws
-  ws-opts:
-    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
-    headers:
-      Host: zeus-panel-8hkm7j.zeus-zew7l5.workers.dev
-- name: 美国/洛杉矶/United States/Los Angeles
-  type: ss
-  server: 108.181.0.177
-  port: 8388
-  cipher: chacha20-ietf-poly1305
-  password: G5p6ww4o67HB
-  udp: true
-- name: 🇩🇪DE-159.195.69.184-3357
-  type: trojan
-  server: dc-38-de.netzrun.at
-  port: 5222
-  password: DkQbKDcxEcKj6CoK6erBrQPsgnB7n7nM
-  udp: true
-  sni: dc-38-de.netzrun.at
-- name: hy2-3
-  type: hysteria2
-  server: 31.22.91.243
-  port: 443
-  password: EsimHy2Game_7xK9mPq2
-  udp: true
-  sni: se.esimpson.org
-  obfs: salamander
-  obfs-password: EsimObfs_9mK2x7
-- name: By EbraSha 🌑
-  type: vless
-  server: 151.101.128.84
-  port: 443
-  uuid: 47b65c00-d158-4ba4-897f-689f0e59f09d
-  udp: true
-  network: ws
-  tls: true
-  servername: www.pinterest.com
-  client-fingerprint: firefox
-  ws-opts:
-    path: /?ed=1024
-    headers:
-      Host: shopcpir.ir
-- name: By EbraSha 📼
-  type: trojan
-  server: 151.101.202.202
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-162.159.242.143-9677
-  type: vmess
-  server: 162.159.242.143
-  port: 2095
-  uuid: 417d27fb-cb93-3bd8-9bf7-71cd91319821
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /hgcefomn
-    headers: {}
-- name: By EbraSha 🪬-2
-  type: vmess
-  server: 172.67.169.90
-  port: 8080
-  uuid: b551aa22-22af-11ee-b8d8-f23c932eb68d
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: oiictw.yydsii.com
-- name: By EbraSha 🦅
+  sni: NET-ACcOunt02.PaGeS.deV
+- name: By EbraSha 🌌
   type: ss
   server: 151.101.1.91
   port: 80
   cipher: "���㖚��_��\x1F�߽��~sm��Ǽ��\x1F"
   password: "���㖚��_��\x1F�߽��~sm��Ǽ��\x1F"
   udp: true
-- name: 🇺🇸US_1210|594KB/s|V010-260618
-  type: vless
-  server: 104.16.144.192
-  port: 2053
-  uuid: 77b90f21-d414-43ae-a81d-ab6769649fc4
-  udp: true
-  network: ws
-  tls: true
-  servername: zeus-panel-8hkm7j.zeus-zew7l5.workers.dev
-  client-fingerprint: random
-  ws-opts:
-    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
-    headers:
-      Host: zeus-panel-8hkm7j.zeus-zew7l5.workers.dev
-- name: 美国/San Francisco/United States/San Francisco-28
-  type: vless
-  server: 104.16.75.223
-  port: 443
-  uuid: b26ec0f4-6c92-45f7-b287-2a664abf1963
-  udp: true
-  network: ws
-  tls: true
-  servername: server-ir-7.ariyuz.org
-  ws-opts:
-    path: /
-    headers:
-      Host: server-ir-7.ariyuz.org
-- name: hy2-4
-  type: hysteria2
-  server: 18.194.63.255
-  port: 443
-  password: masir_sefid
-  udp: true
-  sni: content.masir-sefid.shop
-  obfs: salamander
-  obfs-password: masir_sefid
-- name: By EbraSha 📛
-  type: vless
-  server: 151.101.192.84
-  port: 443
-  uuid: 47b65c00-d158-4ba4-897f-689f0e59f09d
-  udp: true
-  tls: true
-- name: By EbraSha 🧬
+- name: 🏁RELAY-172.67.191.234-1076
   type: trojan
-  server: 151.101.56.7
+  server: 172.67.191.234
   port: 443
-  password: MITIVPN
+  password: 7f2782e1-1f1a-4c5b-b4ae-cead54b8c381
   udp: true
-- name: 🇺🇸US-208.103.161.110-0657
-  type: trojan
-  server: 208.103.161.110
-  port: 443
-  password: humanity
-  udp: true
-  sni: www.creationlong.org
+  sni: nl1.tRojANVpN.xYZ
   network: ws
   ws-opts:
-    path: /assignment
+    path: '%252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252F'
     headers:
-      Host: www.creationlong.org
-- name: By EbraSha 🧿
-  type: vmess
-  server: 160.79.104.10
-  port: 443
-  uuid: 88888888-8888-8888-8888-888888888880
-  alterId: 0
-  cipher: auto
-  udp: true
-  tls: true
-  servername: www.anthropic.com
-- name: By EbraSha 🧿-2
-  type: ss
-  server: 212.183.88.232
-  port: 443
-  cipher: "�W�뭼��;��\x1D�߼k��\x7Ff�m����|"
-  password: "�W�뭼��;��\x1D�߼k��\x7Ff�m����|"
-  udp: true
-- name: 🇺🇸US_934|12.6MB/s
+      Host: nl1.tRojANVpN.xYZ
+- name: 'Channel : @Daily_Configs'
   type: vless
-  server: 162.159.34.173
+  server: 14.102.228.201
+  port: 80
+  uuid: 1e7e0537-c23d-43c2-afd5-4d7753831278
+  udp: true
+  network: xhttp
+- name: 🇺🇸 CxrolVPN
+  type: vless
+  server: 172.64.153.100
   port: 443
-  uuid: 5b9fa73b-b549-480b-add9-c45e650d236f
+  uuid: 6fc36cfc-561f-4544-9a0e-7c732c478500
   udp: true
   network: ws
   tls: true
-  servername: gddy.hhlfy.de5.net
+  servername: us.vipserver14.workers.dev
   client-fingerprint: chrome
   ws-opts:
-    path: /
+    path: /?ed=2048
     headers:
-      Host: gddy.hhlfy.de5.net
-- name: 美国/San Francisco/United States/San Francisco-27
+      Host: us.vipserver14.workers.dev
+- name: '@v2rayconfigamir 2575'
   type: vless
-  server: 198.41.219.218
-  port: 443
-  uuid: fe273991-0514-4a16-8ec4-b15ae861c000
+  server: 104.18.41.138
+  port: 8443
+  uuid: 9a39f63e-28c8-4560-af18-b01b9916ef1b
   udp: true
   network: ws
   tls: true
-  servername: zyzzzoao.xn--fiqv8j.eu.org
+  servername: pardazesh-tgws.pages.dev
   ws-opts:
-    path: /?ed=2048fp=randomized
+    path: /?ed=2048
     headers:
-      Host: zyzzzoao.xn--fiqv8j.eu.org
-- name: HK   HYSTERIA2-TCP-NTLS  130.49.161.70
-  type: hysteria2
-  server: 130.49.161.70
-  port: 443
-  password: p7Q76LzlnS4hIzr1W3staBOnUe_WwSkR
-  udp: true
-  sni: hy2.aspidnet.xyz
-  obfs: salamander
-  obfs-password: ''
-- name: By EbraSha 🧩
-  type: vless
-  server: 151.101.118.101
-  port: 443
-  uuid: 5f65c1ae-9e7a-48ea-8ecf-6822365cd177
-  udp: true
-  network: ws
-  tls: true
-  servername: https://t.me/WangCai2
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: apiv2.global.ssl.fastly.net
-- name: By EbraSha 🛸
-  type: trojan
-  server: 151.101.109.109
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-172.67.180.92-0658
-  type: trojan
-  server: 172.67.180.92
-  port: 443
-  password: humanity
-  udp: true
-  sni: www.multiplydose.com
-  network: ws
-  ws-opts:
-    path: /assignment
-    headers:
-      Host: www.multiplydose.com
-- name: By EbraSha 🚧
+      Host: pardazesh-tgws.pages.dev
+- name: By EbraSha 📀
   type: vmess
   server: 104.31.16.104
   port: 80
@@ -637,96 +101,7 @@ proxies:
     path: /qmbdkyzn
     headers:
       Host: us-4.0rd.net
-- name: By EbraSha ⛓️-2
-  type: ss
-  server: 79.127.233.170
-  port: 990
-  cipher: chacha20-ietf-poly1305
-  password: f8f7aCzcPKbsF8p3
-  udp: true
-- name: 🇺🇸US_865|722KB/s|R002-260618
-  type: vless
-  server: 108.162.192.30
-  port: 8880
-  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: vms.lifetime55.workers.dev
-- name: 美国/San Francisco/United States/San Francisco-23
-  type: vless
-  server: 162.159.252.211
-  port: 80
-  uuid: 3087ca05-1a7c-45fa-aec9-805adeaedb1b
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: tianshu.kevqwkt451.workers.dev
-- name: hy2-5
-  type: hysteria2
-  server: 38.54.4.57
-  port: 443
-  password: 25cccf16-5693-4c6e-9bb9-0e38da7d4475
-  udp: true
-  sni: kh2.yuntong.click
-  obfs: salamander
-  obfs-password: eNM/NfxTsBqQIKcN0ezARS1z0f5mIxRd9GSwhVsyJlo=
-- name: By EbraSha ♦️
-  type: vless
-  server: 151.101.56.213
-  port: 80
-  uuid: ba1c6da5-fa72-45cb-aa35-5dc31674becf
-  udp: true
-  network: xhttp
-- name: By EbraSha 🚧-2
-  type: trojan
-  server: 151.101.131.131
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-160.153.0.73-1041
-  type: vmess
-  server: 160.153.0.73
-  port: 443
-  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  ws-opts:
-    path: /nina.bond/linkvws
-    headers:
-      Host: ark-recipe-3410.sihef23297.workers.dev
-- name: By EbraSha 🦈
-  type: vmess
-  server: 142.171.48.179
-  port: 28167
-  uuid: a75d95d5-ae5b-4207-a6a3-ada2943776b9
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers: {}
-- name: By EbraSha 💣
-  type: ss
-  server: 172.67.70.99
-  port: 443
-  cipher: "w~6w]^��6��9�\x7F�ߧ��n\x1AoW�i��"
-  password: "w~6w]^��6��9�\x7F�ߧ��n\x1AoW�i��"
-  udp: true
-- name: 🇺🇸US_859|3.7MB/s
+- name: 🇺🇸US_506|572KB/s
   type: vless
   server: 139.64.235.30
   port: 8880
@@ -737,294 +112,7 @@ proxies:
     path: /
     headers:
       Host: vms.lifetime09.workers.dev
-- name: 美国/凤凰城/United States/Phoenix
-  type: vmess
-  server: 129.146.77.248
-  port: 39495
-  uuid: f836c736-87fc-4fde-aabc-00857ecdff3e
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  ws-opts:
-    path: /cctv13.m3u8
-    headers: {}
-- name: By EbraSha 🪐
-  type: vless
-  server: 151.101.1.57
-  port: 80
-  uuid: '%40Vpn1_v2rayNG'
-  udp: true
-  network: xhttp
-- name: By EbraSha 🥷-2
-  type: trojan
-  server: 151.101.171.171
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-172.67.204.84-1049
-  type: trojan
-  server: 172.67.204.84
-  port: 2083
-  password: 0e81a9cd-d849-4101-8d64-574c283207de
-  udp: true
-  sni: de1.trojanvpn.de
-  network: ws
-  ws-opts:
-    path: '%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252Fwebsocket'
-    headers:
-      Host: de1.trojanvpn.de
-- name: By EbraSha 🪬-3
-  type: vmess
-  server: 23.224.173.99
-  port: 443
-  uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
-  alterId: 64
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  ws-opts:
-    path: /
-    headers: {}
-- name: By EbraSha 🔥
-  type: ss
-  server: 23.251.121.242
-  port: 8080
-  cipher: rc4-md5
-  password: 14fFPrbezE3HDZzsMOr6
-  udp: true
-- name: 🇺🇸US_810|3.9MB/s|R002-260618
-  type: vless
-  server: 104.16.75.70
-  port: 80
-  uuid: df301b32-1152-4526-9a63-beedd93d3156
-  udp: true
-  network: ws
-  ws-opts:
-    path: //?ed=2048
-    headers:
-      Host: vl.dalazhi.cloudns.biz
-- name: 美国/San Francisco/United States/San Francisco-21
-  type: vless
-  server: 104.16.75.224
-  port: 443
-  uuid: b3bd8d0e-3cbe-4241-a4f1-e3dd0a9e432c
-  udp: true
-  network: ws
-  tls: true
-  servername: server-ir-3.ariyuz.org
-  ws-opts:
-    path: /page=2
-    headers:
-      Host: server-ir-3.ariyuz.org
-- name: By EbraSha 🌌
-  type: vless
-  server: 151.101.194.133
-  port: 80
-  uuid: 286bc2c3-0599-4dd5-a2fd-9502d426a1a6
-  udp: true
-- name: By EbraSha 🌍-2
-  type: trojan
-  server: 151.101.214.214
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560&https://t.me/WangCai2🇨🇳
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-172.67.204.84-1057
-  type: trojan
-  server: 172.67.204.84
-  port: 443
-  password: 78a47480-fd01-11ee-a917-1239d0255272
-  udp: true
-  sni: us1.test3.net
-  network: ws
-  ws-opts:
-    path: '%25252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252Fhowdy'
-    headers:
-      Host: us1.test3.net
-- name: By EbraSha 🤖-2
-  type: vmess
-  server: 67.220.72.237
-  port: 22324
-  uuid: 04621bae-ab36-11ec-b909-0242ac120002
-  alterId: 1
-  cipher: auto
-  udp: true
-- name: By EbraSha 🧿-3
-  type: ss
-  server: 107.155.57.51
-  port: 8080
-  cipher: rc4-md5
-  password: 14fFPrbezE3HDZzsMOr6
-  udp: true
-- name: 🇺🇸US_831|10.0MB/s
-  type: vless
-  server: 104.18.85.125
-  port: 2053
-  uuid: e34561ae-9373-4f1c-8ccd-488ff45bb64e
-  udp: true
-  network: ws
-  tls: true
-  servername: frosty-wind-5575.pashagfw1.workers.dev
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: frosty-wind-5575.pashagfw1.workers.dev
-- name: 美国/San Francisco/United States/San Francisco-20
-  type: vless
-  server: 198.41.223.238
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  udp: true
-  network: ws
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  ws-opts:
-    path: /?TELEGRAM-vpnserverrr_vpnserverrr_vpnserverrr_vpnserverrr_vpnserverrr
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-- name: By EbraSha 🌪️
-  type: vless
-  server: 151.101.0.84
-  port: 443
-  uuid: 47b65c00-d158-4ba4-897f-689f0e59f09d
-  udp: true
-  tls: true
-- name: By EbraSha 🚨-2
-  type: trojan
-  server: 151.101.110.110
-  port: 80
-  password: MiTiVPN
-  udp: true
-  network: ws
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: cdn2-mitivpn.global.ssl.fastly.net
-- name: 🏁RELAY-172.67.196.112-1069
-  type: vmess
-  server: 172.67.196.112
-  port: 443
-  uuid: edbb1059-1633-4271-b66e-ed4fba47a1bf
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  ws-opts:
-    path: /linkws
-    headers:
-      Host: linde06.indiavideo.sbs
-- name: By EbraSha 🔐-2
-  type: vmess
-  server: 192.200.160.16
-  port: 8443
-  uuid: 9b4c2eda-341e-488f-a3b2-1dc716b9f36a
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  servername: steam.avaaaal.ir
-  ws-opts:
-    path: /
-    headers: {}
-- name: By EbraSha 🗿
-  type: ss
-  server: 107.155.57.11
-  port: 8080
-  cipher: rc4-md5
-  password: 14fFPrbezE3HDZzsMOr6
-  udp: true
-- name: 🇺🇸US_834|4.4MB/s
-  type: vless
-  server: 89.116.180.30
-  port: 8880
-  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
-  udp: true
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: vms.lifetime09.workers.dev
-- name: 美国/San Francisco/United States/San Francisco-19
-  type: vless
-  server: 162.159.40.181
-  port: 2096
-  uuid: 06b65903-406d-4a41-8400-6fd5c0ee7798
-  udp: true
-  network: ws
-  tls: true
-  servername: sp.linuxdododo.ccwu.cc
-  ws-opts:
-    path: /proxyip=ProxyIP.JP.cmliussss.net
-    headers:
-      Host: sp.linuxdododo.ccwu.cc
-- name: By EbraSha 🕹️-2
-  type: vless
-  server: 151.101.119.101
-  port: 443
-  uuid: 5f65c1ae-9e7a-48ea-8ecf-6822365cd177
-  udp: true
-  network: ws
-  tls: true
-  servername: https://t.me/WangCai2
-  ws-opts:
-    path: /?ed=2560
-    headers:
-      Host: apiv2.global.ssl.fastly.net
-- name: By EbraSha 🛜
-  type: trojan
-  server: 140.248.185.252
-  port: 443
-  password: MITIVPN
-  udp: true
-- name: 🏁RELAY-104.21.32.223-1109
-  type: vmess
-  server: 104.21.32.223
-  port: 443
-  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: ws
-  tls: true
-  ws-opts:
-    path: /linkvws
-    headers:
-      Host: muriel.makeup
-- name: By EbraSha 📼-2
-  type: vmess
-  server: 190.93.247.19
-  port: 443
-  uuid: d42f070f-30e0-5465-a4d4-f561f6b4f21e
-  alterId: 0
-  cipher: auto
-  udp: true
-  network: grpc
-  tls: true
-  servername: fr2.vmess.site
-  grpc-opts:
-    grpc-service-name: vmess-grpc
-- name: By EbraSha 🐉
-  type: ss
-  server: 107.151.182.253
-  port: 8080
-  cipher: rc4-md5
-  password: 14fFPrbezE3HDZzsMOr6
-  udp: true
-- name: 🇺🇸US_788|9.9MB/s
+- name: 🇺🇸US_602|12.8MB/s
   type: vless
   server: 104.17.119.66
   port: 443
@@ -1038,241 +126,1168 @@ proxies:
     path: /
     headers:
       Host: gddy.hhlfy.de5.net
-- name: 美国/San Francisco/United States/San Francisco-18
+- name: '🇽🇽 XX | VMESS | @ir_netproxy #1 [fast]'
+  type: vmess
+  server: 172.67.207.114
+  port: 443
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  alterId: 1
+  cipher: auto
+  udp: true
+  network: ws
+  tls: true
+  servername: ophelia.mom
+  ws-opts:
+    path: linkvws
+    headers:
+      Host: ophelia.mom
+- name: '@icv2ray'
   type: vless
-  server: 104.21.18.48
+  server: 172.67.179.98
+  port: 8880
+  uuid: 8c56b4af-4762-4299-a1f8-799790dbaac7
+  udp: true
+  network: ws
+  ws-opts:
+    path: /pyip=ProxyIP.SG.CMLiussss.net
+    headers:
+      Host: lively-lab-4fd2.150-6f7.workers.dev
+- name: 🇺🇸+US+5
+  type: ss
+  server: 3.136.233.197
+  port: 443
+  cipher: aes-256-cfb
+  password: amazonskr05
+  udp: true
+- name: NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
+  type: hysteria2
+  server: 103.251.167.168
+  port: 443
+  password: gdubbi2zb6gdp0c8
+  udp: true
+  sni: gettestin.xxee.ru
+  obfs: salamander
+  obfs-password: ''
+- name: '🇸🇪 SE | TUIC | @vipv2rey #1'
+  type: tuic
+  server: 70.34.197.98
+  port: 443
+  udp: true
+  uuid: 87bc1693-8860-41d7-acf4-e6edf49abbbb
+  password: crivAv10hAdr-fop4Lne
+- name: end-gfw.com12@sg89
+  type: vless
+  server: 18.142.160.0
+  port: 8686
+  uuid: 1a17b19d-4896-4531-af79-6e91d8ef8228
+  udp: true
+  tls: true
+  servername: www.apple.com
+  client-fingerprint: chrome
+  reality-opts:
+    public-key: A3NXnUIT-W0m1Y_leRnv5so2IeCvk9FCFgL31PulfTw
+    short-id: 628b3c90c98ead4f
+- name: 🇳🇱 - NL - @FreeOnlineVPN
+  type: vless
+  server: 66.81.247.155
+  port: 8443
+  uuid: 45ab962c-0e61-464b-ddc6-5fdd7338398f
+  udp: true
+  network: xhttp
+  tls: true
+  servername: jokerv.membergolabi.ir.
+  client-fingerprint: chrome
+- name: By EbraSha 🔋
+  type: vless
+  server: 104.156.85.228
+  port: 443
+  uuid: 89b3cbba-e6ac-485a-9481-976a0415eab9
+  udp: true
+  network: ws
+  tls: true
+  servername: en.mfa.gov.ir
+  client-fingerprint: randomized
+  ws-opts:
+    path: /H?ed=2560
+    headers:
+      Host: en.mfa.gov.ir
+- name: By EbraSha 🔌
+  type: trojan
+  server: 162.159.133.75
+  port: 443
+  password: 89ce124f-42d1-4c90-b9d2-bde2861ae615
+  udp: true
+  sni: jp3.pqjc.buzz
+- name: By EbraSha 🎛️
+  type: ss
+  server: 138.199.42.68
+  port: 8080
+  cipher: rc4-md5
+  password: 14fFPrbezE3HDZzsMOr6
+  udp: true
+- name: 🏁RELAY-104.21.58.68-1088
+  type: vmess
+  server: 104.21.58.68
+  port: 443
+  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  tls: true
+  ws-opts:
+    path: /linkvws
+    headers:
+      Host: maggiy.shop
+- name: 'Telegram : @V2ynpv'
+  type: vless
+  server: 199.232.196.193
   port: 80
-  uuid: dc5b7653-70dd-4d5e-966f-3b595049a204
+  uuid: 2637679c-e2fe-45a2-9962-e2ddf8469c29
+  udp: true
+  network: xhttp
+- name: '@Hope_Net-join-us-on-Telegram'
+  type: vless
+  server: 172.67.137.219
+  port: 443
+  uuid: 79bf326d-93de-494f-a7a1-f9aaa764f86a
+  udp: true
+  network: ws
+  tls: true
+  servername: pages.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /@ANA_Service?ed=2048
+    headers:
+      Host: kir-too-kos-o-koon-maman-arzeshi-begoo-jooooooon.pages.dev
+- name: '@IRAN_V2RAY1'
+  type: vless
+  server: 162.159.133.196
+  port: 8443
+  uuid: 8ee19304-fdf4-43dd-ab77-133a77d349ed
+  udp: true
+  network: xhttp
+  tls: true
+  servername: sa.sorixset.ir
+  client-fingerprint: chrome
+- name: By EbraSha 🛰️
+  type: vmess
+  server: 172.67.152.170
+  port: 2052
+  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
+  alterId: 0
+  cipher: auto
   udp: true
   network: ws
   ws-opts:
     path: /
     headers:
-      Host: ez-a2fb15.sina-noraianfard-2015.workers.dev
-- name: By EbraSha 🧲-2
+      Host: mahilu.site
+- name: 🇺🇸US_495|8.5MB/s
   type: vless
-  server: 199.232.0.39
+  server: 89.116.180.30
+  port: 8880
+  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: vms.lifetime09.workers.dev
+- name: 🇺🇸US_705|6.0MB/s
+  type: vless
+  server: 162.159.34.173
   port: 443
-  uuid: 621e8a54-2947-4a98-b0e0-f9048a426e34
+  uuid: 5b9fa73b-b549-480b-add9-c45e650d236f
   udp: true
   network: ws
   tls: true
-  servername: ELENaV2Ray.My.iD
-  client-fingerprint: edge
+  servername: gddy.hhlfy.de5.net
+  client-fingerprint: chrome
   ws-opts:
-    path: /VLESS?ed=2560
+    path: /
     headers:
-      Host: Elenav2ray.my.id
+      Host: gddy.hhlfy.de5.net
+- name: '🇩🇪 DE | VMESS | @khoneproxy #1 [fast]'
+  type: vmess
+  server: 142.132.163.200
+  port: 80
+  uuid: 7f965e3e-b03f-455e-a96e-01b61f72537a
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /graphql
+    headers: {}
+- name: 🇩🇪 @V2ngFast
+  type: vless
+  server: 104.16.43.192
+  port: 2083
+  uuid: 88e32d76-b49f-44ee-a90a-1ad01d542d55
+  udp: true
+  network: ws
+  tls: true
+  servername: ez-2cB1f5.sabZIpolObAMAHi9.WORkerS.deV
+  client-fingerprint: chrome
+  ws-opts:
+    path: /eyJqdW5rIjoiOWc3WUROOHZXemEiLCJwcm90b2NvbCI6InZsIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560
+    headers:
+      Host: ez-2cb1f5.sabzipolobamahi9.workers.dev
+- name: hy2
+  type: hysteria2
+  server: 62.210.124.146
+  port: 22000
+  password: dongtaiwang.com
+  udp: true
+  sni: www.microsoft.com
+  skip-cert-verify: true
+- name: '@MrNexTV2RAY'
+  type: vless
+  server: 104.24.172.228
+  port: 443
+  uuid: 5b8b759a-4c9d-4c4d-a3e3-220bb727eb6c
+  udp: true
+  network: xhttp
+  tls: true
+  client-fingerprint: chrome
+- name: By EbraSha 🧩
+  type: vless
+  server: 199.232.130.246
+  port: 443
+  uuid: XpnTeam-22
+  udp: true
+  network: ws
+  tls: true
+  servername: default.ssl.fastly.net
+  client-fingerprint: chrome
+  ws-opts:
+    path: /
+    headers:
+      Host: Appxdn.global.ssl.fastly.net
+- name: By EbraSha 🐉
+  type: trojan
+  server: 194.53.53.11
+  port: 2096
+  password: d6b8011a-c725-435a-9fec-bf6d3530392c
+  udp: true
+  sni: vle.amclubssss.dpdns.org
+- name: By EbraSha ♣️
+  type: ss
+  server: 172.67.70.99
+  port: 443
+  cipher: "w~6w]^��6��9�\x7F�ߧ��n\x1AoW�i��"
+  password: "w~6w]^��6��9�\x7F�ߧ��n\x1AoW�i��"
+  udp: true
+- name: 🏁RELAY-172.64.90.210-9637
+  type: vmess
+  server: 172.64.90.210
+  port: 2095
+  uuid: 417d27fb-cb93-3bd8-9bf7-71cd91319821
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /hgcefomn
+    headers: {}
+- name: Proxy_Se7en
+  type: vless
+  server: 188.42.88.24
+  port: 443
+  uuid: 36ddcba8-5d7b-4243-8316-6adb4bfc6b88
+  udp: true
+  network: ws
+  tls: true
+  servername: ez-c8f0f1.ezaccess1990eee.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /
+    headers:
+      Host: Proxy-Se7en---Proxy-Se7en---Proxy-Se7en---Proxy-Se7en---Proxy-Se7en---Proxy-Se7en---Proxy-Se7en
+- name: '[🇺🇸]@NetliVPN'
+  type: vless
+  server: 104.19.9.3
+  port: 443
+  uuid: 759ac4eb-457d-463e-b18a-8c4e87ed8f41
+  udp: true
+  network: ws
+  tls: true
+  servername: zeus-panel-491abp.zeus-2axep0.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-491abp.zeus-2axep0.workers.dev
+- name: 'Tel: @Daily_Configs'
+  type: vless
+  server: 45.131.6.203
+  port: 2053
+  uuid: 954ee007-ed27-42cc-bfa8-7e104a2a4279
+  udp: true
+  network: ws
+  tls: true
+  servername: airb.pcapps.ir
+  ws-opts:
+    path: /ws?ed=2560
+    headers:
+      Host: airb.pcapps.ir
+- name: By EbraSha 🩸
+  type: vmess
+  server: 172.67.214.33
+  port: 2095
+  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: fcdn.flha.ru
+- name: 🇺🇸US_303|11.5MB/s
+  type: vless
+  server: 104.16.154.14
+  port: 443
+  uuid: e34561ae-9373-4f1c-8ccd-488ff45bb64e
+  udp: true
+  network: ws
+  tls: true
+  servername: frosty-wind-5575.pashagfw1.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /
+    headers:
+      Host: frosty-wind-5575.pashagfw1.workers.dev
+- name: 🇺🇸US_410|3.9MB/s
+  type: vless
+  server: 160.153.1.30
+  port: 8880
+  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: vms.lifetime61.workers.dev
+- name: '🇩🇪 DE | VMESS | @magickey_shop #1 [fast]'
+  type: vmess
+  server: 168.119.174.229
+  port: 443
+  uuid: 6b7cbc41-fb80-41a8-8eb6-b5bdb0e86147
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: 🔵@chillguy_vpn
+  type: vless
+  server: 104.16.72.42
+  port: 2087
+  uuid: 8b8e0951-a623-4c2a-a4c4-01c0f2b0e1d9
+  udp: true
+  network: ws
+  tls: true
+  servername: api.devilishez.com
+  client-fingerprint: chrome
+  ws-opts:
+    path: /
+    headers: {}
+- name: hy2-2
+  type: hysteria2
+  server: 18.194.63.255
+  port: 443
+  password: masir_sefid
+  udp: true
+  sni: content.masir-sefid.shop
+  obfs: salamander
+  obfs-password: masir_sefid
+- name: '@Hope_Net-join-us-on-Telegram-2'
+  type: vless
+  server: 69.84.182.127
+  port: 443
+  uuid: 48198295-b7ba-4b5c-8d85-085d55a6c869
+  udp: true
+  network: ws
+  tls: true
+  servername: xe.ylks.xyz
+  ws-opts:
+    path: /?proxyip
+    headers: {}
+- name: By EbraSha 🌃
+  type: vless
+  server: 151.101.66.216
+  port: 80
+  uuid: 217b48d6-5dac-4662-9a8c-aa76e92a7cfe
+  udp: true
+  network: ws
+  ws-opts:
+    path: ws/?ed=2048
+    headers:
+      Host: befreewithus.com
+- name: By EbraSha 🗿
+  type: trojan
+  server: 172.67.200.219
+  port: 443
+  password: humanity
+  udp: true
+  sni: www.calmlunch.com
+  network: ws
+  ws-opts:
+    path: /assignment
+    headers: {}
+- name: By EbraSha 🧠
+  type: ss
+  server: 212.183.88.232
+  port: 443
+  cipher: "�W�뭼��;��\x1D�߼k��\x7Ff�m����|"
+  password: "�W�뭼��;��\x1D�߼k��\x7Ff�m����|"
+  udp: true
+- name: 🏁RELAY-104.31.16.46-9923
+  type: vmess
+  server: 104.31.16.46
+  port: 2082
+  uuid: 58fe1542-5290-40ad-815a-77707a81afe5
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /IOebhLMhl1CTbFHbL95myfRX2
+    headers: {}
+- name: '@Hope_Net-join-us-on-Telegram-3'
+  type: vless
+  server: 185.18.250.109
+  port: 443
+  uuid: 2cd6ed0f-636e-4e6c-9449-5a263d7a0fa5
+  udp: true
+  network: ws
+  tls: true
+  servername: cfed.tgzdyz2.top
+  ws-opts:
+    path: /tg@zdyz2
+    headers: {}
+- name: 🚀@V2Ray_Hub1200
+  type: vless
+  server: 104.21.7.233
+  port: 8443
+  uuid: 7d9e602e-22ba-4d28-b3e4-ec4a355ad569
+  udp: true
+  network: ws
+  tls: true
+  servername: zeus-panel-qdp6tf.javadkhanoffice8-840.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-qdp6tf.javadkhanoffice8-840.workers.dev
+- name: '@IRAN_V2RAY1-2'
+  type: vless
+  server: 162.159.135.9
+  port: 8443
+  uuid: 8ee19304-fdf4-43dd-ab77-133a77d349ed
+  udp: true
+  network: xhttp
+  tls: true
+  servername: sa.sorixset.ir
+  client-fingerprint: chrome
+- name: By EbraSha 🔌-2
+  type: vmess
+  server: 104.21.23.231
+  port: 2095
+  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: onea.flha.ru
+- name: 🇺🇸US_511|5.3MB/s|R002-260618
+  type: vless
+  server: 108.162.192.30
+  port: 8880
+  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: vms.lifetime55.workers.dev
+- name: 🇺🇸US_536|12.0MB/s
+  type: vless
+  server: 162.159.1.84
+  port: 443
+  uuid: 5b9fa73b-b549-480b-add9-c45e650d236f
+  udp: true
+  network: ws
+  tls: true
+  servername: gddy.hhlfy.de5.net
+  client-fingerprint: firefox
+  ws-opts:
+    path: /
+    headers:
+      Host: gddy.hhlfy.de5.net
+- name: '🇩🇪 DE | VMESS | @khoneproxy #2 [fast]'
+  type: vmess
+  server: 167.235.205.182
+  port: 443
+  uuid: 6b7cbc41-fb80-41a8-8eb6-b5bdb0e86147
+  alterId: 0
+  cipher: auto
+  udp: true
+- name: filembad-326
+  type: vless
+  server: 45.142.120.54
+  port: 443
+  uuid: 882c6000-d662-4d88-80a9-f51e73d0d181
+  udp: true
+  network: ws
+  tls: true
+  servername: zeus-panel-igxg8r.zeus-l045vf.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-igxg8r.zeus-l045vf.workers.dev
+- name: hy2-3
+  type: hysteria2
+  server: 31.76.28.28
+  port: 443
+  password: 8bc63720-5ec8-45b5-b6a6-9a21ffb490e8
+  udp: true
+  sni: argg5.auragg.org
+- name: '@erfanandroid'
+  type: vless
+  server: 172.67.123.252
+  port: 443
+  uuid: 577780e2-28cd-4b9f-a5d5-20b75cd6d47a
+  udp: true
+  network: ws
+  tls: true
+  servername: zeus-panel-8v7tpq.mp3295939.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-8v7tpq.mp3295939.workers.dev
+- name: By EbraSha 🌃-2
+  type: vless
+  server: 172.67.204.105
+  port: 2052
+  uuid: 2737560d-1867-47fa-aa80-351c36d771c7
+  udp: true
+  network: ws
+  ws-opts:
+    path: /?ed=2560
+    headers:
+      Host: 0118.kznyoum2.workers.dev
+- name: By EbraSha 🦈
+  type: trojan
+  server: 104.20.19.59
+  port: 443
+  password: auto
+  udp: true
+  sni: b96ef9ae.trojanfree-76s.pages.dev
+  network: ws
+  ws-opts:
+    path: /b96ef9ae.trojanfree-76s.pages.dev/
+    headers:
+      Host: b96ef9ae.trojanfree-76s.pages.dev
+- name: By EbraSha 📟
+  type: ss
+  server: 172.67.132.246
+  port: 443
+  cipher: chacha20-poly1305
+  password: www.v2nodes.com
+  udp: true
+- name: 🏁RELAY-104.31.16.38-9929
+  type: vmess
+  server: 104.31.16.38
+  port: 80
+  uuid: 8abe9496-5e24-4e49-b566-dcf86116017d
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /i99LgvSaslbsPLLQQ7j6Z
+    headers: {}
+- name: 🇨🇦@FreakConfig
+  type: vless
+  server: 198.41.208.172
+  port: 2083
+  uuid: 1deea0b5-7ea7-4b40-ae73-81a9d59824a0
+  udp: true
+  network: xhttp
+  tls: true
+  servername: GGMMDDE2.FOLLOWERARZON1.COM
+  client-fingerprint: chrome
+- name: 🇺🇸 CxrolVPN-2
+  type: vless
+  server: 172.64.153.105
+  port: 443
+  uuid: 6fc36cfc-561f-4544-9a0e-7c732c478500
+  udp: true
+  network: ws
+  tls: true
+  servername: us.vipserver14.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /?ed=2048
+    headers:
+      Host: us.vipserver14.workers.dev
+- name: 🇨🇦 @GozargahVPN
+  type: vless
+  server: 151.101.65.57
+  port: 80
+  uuid: 96eec36e-2c44-5b09-898e-6f0f0526e57f
+  udp: true
+  network: xhttp
+- name: By EbraSha 🌑
+  type: vmess
+  server: 160.79.104.10
+  port: 443
+  uuid: 88888888-8888-8888-8888-888888888880
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  servername: www.anthropic.com
+- name: 🇺🇸US_779|1.2MB/s
+  type: vless
+  server: 184.168.47.50
+  port: 8880
+  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /?ed=2560&https://t.me/YouTube@小青科学网🇨🇳
+    headers:
+      Host: vms.lifetime40.workers.dev
+- name: 🇯🇵JP_72|3.7MB/s|A001-260618
+  type: ss
+  server: 52.192.80.59
+  port: 443
+  cipher: aes-256-cfb
+  password: amazonskr05
+  udp: true
+- name: 🔵@chillguy_vpn-2
+  type: vless
+  server: 172.67.153.146
+  port: 80
+  uuid: 882c6000-d662-4d88-80a9-f51e73d0d181
+  udp: true
+  network: ws
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-igxg8r.zeus-l045vf.workers.dev
+- name: hy2-4
+  type: hysteria2
+  server: 31.22.91.243
+  port: 443
+  password: EsimHy2Game_7xK9mPq2
+  udp: true
+  sni: se.esimpson.org
+  obfs: salamander
+  obfs-password: EsimObfs_9mK2x7
+- name: '@TanhaNet 🇮🇷'
+  type: vless
+  server: 188.114.99.160
+  port: 8443
+  uuid: 5acc4610-f2d7-44c9-bbe6-c0ee6a058aac
+  udp: true
+  network: ws
+  tls: true
+  servername: maple.adaspoloandco.com
+  client-fingerprint: chrome
+  ws-opts:
+    path: /uploader.php
+    headers:
+      Host: maple.adaspoloandco.com
+- name: By EbraSha 🦾
+  type: vless
+  server: 199.232.244.59
+  port: 443
+  uuid: 2d2d8420-5c15-4351-9d3a-cec8f8ef65e8
+  udp: true
+  network: xhttp
+  tls: true
+  servername: manage.fastly.com
+  client-fingerprint: chrome
+- name: By EbraSha 🚀
+  type: trojan
+  server: 104.21.25.80
+  port: 443
+  password: h0i1j2k3-4567-8bcd-9abc-0123abcdef45
+  udp: true
+  sni: trojan.workers.dev
+- name: By EbraSha 🧲
+  type: ss
+  server: 185.176.24.120
+  port: 8443
+  cipher: "m�t{\x7Fv��wk�<�Ϛ��>w��{m�}��"
+  password: "m�t{\x7Fv��wk�<�Ϛ��>w��{m�}��"
+  udp: true
+- name: 🏁RELAY-104.27.203.169-9975
+  type: vmess
+  server: 104.27.203.169
+  port: 443
+  uuid: b3a21def-5fcc-47a8-a6a0-a34e29d5288a
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  tls: true
+  ws-opts:
+    path: /wss51068
+    headers: {}
+- name: 🇩🇪 - DE - @FreeOnlineVPN
+  type: vless
+  server: 104.18.26.90
+  port: 2087
+  uuid: 213426db-afb7-48d1-ae51-5093317212df
+  udp: true
+  network: ws
+  tls: true
+  servername: iopl90nn.bingnet.online
+  ws-opts:
+    path: /
+    headers:
+      Host: iopl90nn.bingnet.online
+- name: 'اگه میخوای قطع نشی جوین شو : @farsiproxy'
+  type: vless
+  server: 198.12.145.30
+  port: 8880
+  uuid: 6202b230-417c-4d8e-b624-0f71afa9c75d
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: vms.lifetime61.workers.dev
+- name: '@IRAN_V2RAY1-3'
+  type: vless
+  server: 162.159.62.247
+  port: 8443
+  uuid: 8ee19304-fdf4-43dd-ab77-133a77d349ed
+  udp: true
+  network: xhttp
+  tls: true
+  servername: sa.sorixset.ir
+  client-fingerprint: chrome
+- name: By EbraSha 🛜
+  type: vmess
+  server: 172.67.169.90
+  port: 8080
+  uuid: b551aa22-22af-11ee-b8d8-f23c932eb68d
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: oiictw.yydsii.com
+- name: 🇺🇸US_492|10.5MB/s
+  type: vless
+  server: 104.18.85.125
+  port: 2053
+  uuid: e34561ae-9373-4f1c-8ccd-488ff45bb64e
+  udp: true
+  network: ws
+  tls: true
+  servername: frosty-wind-5575.pashagfw1.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /
+    headers:
+      Host: frosty-wind-5575.pashagfw1.workers.dev
+- name: 🇯🇵JP_73|3.5MB/s|S001-260618
+  type: ss
+  server: 18.183.135.29
+  port: 443
+  cipher: aes-256-cfb
+  password: amazonskr05
+  udp: true
+- name: '@MrNexTV2RAY-2'
+  type: vless
+  server: 104.24.168.54
+  port: 443
+  uuid: 8790b865-c50d-42ff-9347-026c9675d83d
+  udp: true
+  network: xhttp
+  tls: true
+  client-fingerprint: chrome
+- name: hy2-5
+  type: hysteria2
+  server: 185.75.135.220
+  port: 443
+  password: 00dcd873-9211-4d61-ad35-87999906e5c8
+  udp: true
+  sni: fta.fontanvpn.com
+- name: 🪼30@oneclickvpnkeys
+  type: vless
+  server: 173.245.58.75
+  port: 443
+  uuid: 4f013568-a58b-4b04-b5dd-4d52bf1c33a4
+  udp: true
+  network: ws
+  tls: true
+  servername: amoosamiii.net
+  client-fingerprint: chrome
+  ws-opts:
+    path: /poiuyws
+    headers:
+      Host: amoosamiii.net
+- name: By EbraSha 🚧
+  type: vless
+  server: 104.24.175.2
+  port: 80
+  uuid: 3487ce43-b803-4770-97ff-f75880d7f9b4
+  udp: true
+  network: ws
+  ws-opts:
+    path: /?ed=2560
+    headers:
+      Host: rough-mud-93b4-ppal03.wedane7745.workers.dev
+- name: By EbraSha ⚡
+  type: trojan
+  server: 104.21.69.41
+  port: 443
+  password: 6040a753-e35b-4384-8713-96f3c639b621
+  udp: true
+  sni: kju84.890602.XYZ
+- name: By EbraSha 📶
+  type: ss
+  server: 104.192.227.163
+  port: 443
+  cipher: chacha20-ietf-poly1305
+  password: NeORiiA1d3vHdXsfPV37Lr
+  udp: true
+- name: 🏁RELAY-172.67.166.111-0956
+  type: vmess
+  server: 172.67.166.111
+  port: 443
+  uuid: 251165d1-f3ea-8977-4fe6-96d0601f493d
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  tls: true
+  servername: RELAY-172.67.166.111-0086 | 0.0MB
+  ws-opts:
+    path: /
+    headers:
+      Host: guil.tk
+- name: 🇩🇪 @V2ngFast-2
+  type: vless
+  server: 172.67.176.240
+  port: 2087
+  uuid: 297b49be-773a-4709-a9a8-659c8e0b5252
+  udp: true
+  network: ws
+  tls: true
+  servername: Ez-E39b84.PADArPaDaR.wOrkeRS.DEv
+  client-fingerprint: chrome
+  ws-opts:
+    path: /eyJqdW5rIjoiSDFLUWh3RkQzZks5WjhNIiwicHJvdG9jb2wiOiJ2bCIsIm1vZGUiOiJwcm94eWlwIiwicGFuZWxJUHMiOltdfQ==?ed=2560
+    headers:
+      Host: ez-e39b84.padarpadar.workers.dev
+- name: 🇸🇬
+  type: vless
+  server: 104.16.72.70
+  port: 2096
+  uuid: 70252937-5c61-4fb0-8656-d1a16261b795
+  udp: true
+  network: ws
+  tls: true
+  servername: group.shalana.xyz
+  ws-opts:
+    path: /shalana
+    headers:
+      Host: group.shalana.xyz
+- name: '@IRAN_V2RAY1-4'
+  type: vless
+  server: 162.159.27.199
+  port: 8443
+  uuid: 8ee19304-fdf4-43dd-ab77-133a77d349ed
+  udp: true
+  network: xhttp
+  tls: true
+  servername: sa.sorixset.ir
+  client-fingerprint: chrome
+- name: By EbraSha 🌀
+  type: vmess
+  server: 104.21.82.39
+  port: 2052
+  uuid: 7a737f41-b792-4260-94ff-3d864da67b80
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: ws
+  ws-opts:
+    path: /
+    headers:
+      Host: mahilu.site
+- name: 🇺🇸US_690|8.1MB/s|S001-260618
+  type: ss
+  server: 3.147.127.17
+  port: 443
+  cipher: aes-256-cfb
+  password: amazonskr05
+  udp: true
+- name: 🇷🇺RU_4|2.0MB/s|K001-260618
+  type: ss
+  server: 195.133.23.73
+  port: 50132
+  cipher: aes-256-gcm
+  password: fbaf33bcffe53cf9
+  udp: true
+- name: 🔵@chillguy_vpn-3
+  type: vless
+  server: 172.67.156.99
+  port: 443
+  uuid: 89b3cbba-e6ac-485a-9481-976a0415eab9
+  udp: true
+  network: ws
+  tls: true
+  servername: PPAL03.wopaJO6948.WorKErs.dEv
+  ws-opts:
+    path: /2h9pwob102xqfyhg?ed=2560
+    headers:
+      Host: PPAL03.wopaJO6948.WorKErs.dEv
+- name: HK   HYSTERIA2-TCP-NTLS  130.49.161.70
+  type: hysteria2
+  server: 130.49.161.70
+  port: 443
+  password: p7Q76LzlnS4hIzr1W3staBOnUe_WwSkR
+  udp: true
+  sni: hy2.aspidnet.xyz
+  obfs: salamander
+  obfs-password: ''
+- name: 🇨🇦@FreakConfig-2
+  type: vless
+  server: 104.18.28.234
+  port: 443
+  uuid: 5c6c1e0f-de3e-4f18-9d6c-c09405e51dd8
+  udp: true
+  network: ws
+  tls: true
+  servername: zeus-panel-my3fph.zeus-2fx348.workers.dev
+  client-fingerprint: chrome
+  ws-opts:
+    path: /In_Panel_Rayeghan_Ast_Va_Gheyre_Ghabele_Foroosh
+    headers:
+      Host: zeus-panel-my3fph.zeus-2fx348.workers.dev
 proxy-groups:
 - name: 🚀 节点选择
   type: select
   proxies:
   - ♻️ 自动选择
   - DIRECT
-  - By EbraSha 🧲
-  - By EbraSha 🥷
-  - 🏁RELAY-104.19.159.6-1076
-  - By EbraSha 🕹️
-  - By EbraSha ✨
-  - 🇺🇸US_1508|2.5MB/s|M002-260618
-  - 塞舌尔/Seychelles-12
-  - 🇯🇵JP-172.111.146.64-0114
-  - end-gfw.com22@kr64
-  - hy2
-  - '🇸🇪 SE | TUIC | @vipv2rey #1'
-  - 🇹🇷 Join+Telegram:@SolVPN 🇹🇷
-  - By EbraSha ✨-2
-  - By EbraSha 👾
-  - 🏁RELAY-185.18.250.70-9495
-  - By EbraSha 🚨
-  - By EbraSha ✨-3
-  - 🇺🇸US_1299|5.2MB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-30
-  - 🇫🇷FR-15.237.74.149-3355
-  - end-gfw.com12@sg89
-  - NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
-  - By EbraSha 🤖
-  - By EbraSha ⛓️
-  - 🏁RELAY-172.64.229.116-9626
-  - By EbraSha 🌍
-  - By EbraSha 🔐
-  - 🇺🇸US_1222|970KB/s|V007-260618
-  - 美国/United States-13
-  - 🇩🇪DE-185.137.157.149-2245
-  - hy2-2
-  - By EbraSha 🔌
-  - By EbraSha ♣️
-  - 🏁RELAY-162.159.254.44-9663
-  - By EbraSha 🪖
-  - By EbraSha 🪬
-  - 🇺🇸US_1214|1.3MB/s|V003-260618
-  - 美国/洛杉矶/United States/Los Angeles
-  - 🇩🇪DE-159.195.69.184-3357
-  - hy2-3
-  - By EbraSha 🌑
-  - By EbraSha 📼
-  - 🏁RELAY-162.159.242.143-9677
-  - By EbraSha 🪬-2
-  - By EbraSha 🦅
-  - 🇺🇸US_1210|594KB/s|V010-260618
-  - 美国/San Francisco/United States/San Francisco-28
-  - hy2-4
-  - By EbraSha 📛
-  - By EbraSha 🧬
-  - 🇺🇸US-208.103.161.110-0657
-  - By EbraSha 🧿
-  - By EbraSha 🧿-2
-  - 🇺🇸US_934|12.6MB/s
-  - 美国/San Francisco/United States/San Francisco-27
-  - HK   HYSTERIA2-TCP-NTLS  130.49.161.70
-  - By EbraSha 🧩
-  - By EbraSha 🛸
-  - 🏁RELAY-172.67.180.92-0658
-  - By EbraSha 🚧
-  - By EbraSha ⛓️-2
-  - 🇺🇸US_865|722KB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-23
-  - hy2-5
-  - By EbraSha ♦️
-  - By EbraSha 🚧-2
-  - 🏁RELAY-160.153.0.73-1041
-  - By EbraSha 🦈
-  - By EbraSha 💣
-  - 🇺🇸US_859|3.7MB/s
-  - 美国/凤凰城/United States/Phoenix
+  - 5 𝗝𝗼𝗶𝗻 ➠ @MoOon_proxy
   - By EbraSha 🪐
-  - By EbraSha 🥷-2
-  - 🏁RELAY-172.67.204.84-1049
-  - By EbraSha 🪬-3
-  - By EbraSha 🔥
-  - 🇺🇸US_810|3.9MB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-21
+  - By EbraSha 🌍
   - By EbraSha 🌌
-  - By EbraSha 🌍-2
-  - 🏁RELAY-172.67.204.84-1057
-  - By EbraSha 🤖-2
-  - By EbraSha 🧿-3
-  - 🇺🇸US_831|10.0MB/s
-  - 美国/San Francisco/United States/San Francisco-20
-  - By EbraSha 🌪️
-  - By EbraSha 🚨-2
-  - 🏁RELAY-172.67.196.112-1069
-  - By EbraSha 🔐-2
-  - By EbraSha 🗿
-  - 🇺🇸US_834|4.4MB/s
-  - 美国/San Francisco/United States/San Francisco-19
-  - By EbraSha 🕹️-2
-  - By EbraSha 🛜
-  - 🏁RELAY-104.21.32.223-1109
-  - By EbraSha 📼-2
+  - 🏁RELAY-172.67.191.234-1076
+  - 'Channel : @Daily_Configs'
+  - 🇺🇸 CxrolVPN
+  - '@v2rayconfigamir 2575'
+  - By EbraSha 📀
+  - 🇺🇸US_506|572KB/s
+  - 🇺🇸US_602|12.8MB/s
+  - '🇽🇽 XX | VMESS | @ir_netproxy #1 [fast]'
+  - '@icv2ray'
+  - 🇺🇸+US+5
+  - NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
+  - '🇸🇪 SE | TUIC | @vipv2rey #1'
+  - end-gfw.com12@sg89
+  - 🇳🇱 - NL - @FreeOnlineVPN
+  - By EbraSha 🔋
+  - By EbraSha 🔌
+  - By EbraSha 🎛️
+  - 🏁RELAY-104.21.58.68-1088
+  - 'Telegram : @V2ynpv'
+  - '@Hope_Net-join-us-on-Telegram'
+  - '@IRAN_V2RAY1'
+  - By EbraSha 🛰️
+  - 🇺🇸US_495|8.5MB/s
+  - 🇺🇸US_705|6.0MB/s
+  - '🇩🇪 DE | VMESS | @khoneproxy #1 [fast]'
+  - 🇩🇪 @V2ngFast
+  - hy2
+  - '@MrNexTV2RAY'
+  - By EbraSha 🧩
   - By EbraSha 🐉
-  - 🇺🇸US_788|9.9MB/s
-  - 美国/San Francisco/United States/San Francisco-18
-  - By EbraSha 🧲-2
+  - By EbraSha ♣️
+  - 🏁RELAY-172.64.90.210-9637
+  - Proxy_Se7en
+  - '[🇺🇸]@NetliVPN'
+  - 'Tel: @Daily_Configs'
+  - By EbraSha 🩸
+  - 🇺🇸US_303|11.5MB/s
+  - 🇺🇸US_410|3.9MB/s
+  - '🇩🇪 DE | VMESS | @magickey_shop #1 [fast]'
+  - 🔵@chillguy_vpn
+  - hy2-2
+  - '@Hope_Net-join-us-on-Telegram-2'
+  - By EbraSha 🌃
+  - By EbraSha 🗿
+  - By EbraSha 🧠
+  - 🏁RELAY-104.31.16.46-9923
+  - '@Hope_Net-join-us-on-Telegram-3'
+  - 🚀@V2Ray_Hub1200
+  - '@IRAN_V2RAY1-2'
+  - By EbraSha 🔌-2
+  - 🇺🇸US_511|5.3MB/s|R002-260618
+  - 🇺🇸US_536|12.0MB/s
+  - '🇩🇪 DE | VMESS | @khoneproxy #2 [fast]'
+  - filembad-326
+  - hy2-3
+  - '@erfanandroid'
+  - By EbraSha 🌃-2
+  - By EbraSha 🦈
+  - By EbraSha 📟
+  - 🏁RELAY-104.31.16.38-9929
+  - 🇨🇦@FreakConfig
+  - 🇺🇸 CxrolVPN-2
+  - 🇨🇦 @GozargahVPN
+  - By EbraSha 🌑
+  - 🇺🇸US_779|1.2MB/s
+  - 🇯🇵JP_72|3.7MB/s|A001-260618
+  - 🔵@chillguy_vpn-2
+  - hy2-4
+  - '@TanhaNet 🇮🇷'
+  - By EbraSha 🦾
+  - By EbraSha 🚀
+  - By EbraSha 🧲
+  - 🏁RELAY-104.27.203.169-9975
+  - 🇩🇪 - DE - @FreeOnlineVPN
+  - 'اگه میخوای قطع نشی جوین شو : @farsiproxy'
+  - '@IRAN_V2RAY1-3'
+  - By EbraSha 🛜
+  - 🇺🇸US_492|10.5MB/s
+  - 🇯🇵JP_73|3.5MB/s|S001-260618
+  - '@MrNexTV2RAY-2'
+  - hy2-5
+  - 🪼30@oneclickvpnkeys
+  - By EbraSha 🚧
+  - By EbraSha ⚡
+  - By EbraSha 📶
+  - 🏁RELAY-172.67.166.111-0956
+  - 🇩🇪 @V2ngFast-2
+  - 🇸🇬
+  - '@IRAN_V2RAY1-4'
+  - By EbraSha 🌀
+  - 🇺🇸US_690|8.1MB/s|S001-260618
+  - 🇷🇺RU_4|2.0MB/s|K001-260618
+  - 🔵@chillguy_vpn-3
+  - HK   HYSTERIA2-TCP-NTLS  130.49.161.70
+  - 🇨🇦@FreakConfig-2
 - name: ♻️ 自动选择
   type: url-test
   url: https://www.gstatic.com/generate_204
   interval: 300
   proxies:
-  - By EbraSha 🧲
-  - By EbraSha 🥷
-  - 🏁RELAY-104.19.159.6-1076
-  - By EbraSha 🕹️
-  - By EbraSha ✨
-  - 🇺🇸US_1508|2.5MB/s|M002-260618
-  - 塞舌尔/Seychelles-12
-  - 🇯🇵JP-172.111.146.64-0114
-  - end-gfw.com22@kr64
-  - hy2
-  - '🇸🇪 SE | TUIC | @vipv2rey #1'
-  - 🇹🇷 Join+Telegram:@SolVPN 🇹🇷
-  - By EbraSha ✨-2
-  - By EbraSha 👾
-  - 🏁RELAY-185.18.250.70-9495
-  - By EbraSha 🚨
-  - By EbraSha ✨-3
-  - 🇺🇸US_1299|5.2MB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-30
-  - 🇫🇷FR-15.237.74.149-3355
-  - end-gfw.com12@sg89
-  - NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
-  - By EbraSha 🤖
-  - By EbraSha ⛓️
-  - 🏁RELAY-172.64.229.116-9626
-  - By EbraSha 🌍
-  - By EbraSha 🔐
-  - 🇺🇸US_1222|970KB/s|V007-260618
-  - 美国/United States-13
-  - 🇩🇪DE-185.137.157.149-2245
-  - hy2-2
-  - By EbraSha 🔌
-  - By EbraSha ♣️
-  - 🏁RELAY-162.159.254.44-9663
-  - By EbraSha 🪖
-  - By EbraSha 🪬
-  - 🇺🇸US_1214|1.3MB/s|V003-260618
-  - 美国/洛杉矶/United States/Los Angeles
-  - 🇩🇪DE-159.195.69.184-3357
-  - hy2-3
-  - By EbraSha 🌑
-  - By EbraSha 📼
-  - 🏁RELAY-162.159.242.143-9677
-  - By EbraSha 🪬-2
-  - By EbraSha 🦅
-  - 🇺🇸US_1210|594KB/s|V010-260618
-  - 美国/San Francisco/United States/San Francisco-28
-  - hy2-4
-  - By EbraSha 📛
-  - By EbraSha 🧬
-  - 🇺🇸US-208.103.161.110-0657
-  - By EbraSha 🧿
-  - By EbraSha 🧿-2
-  - 🇺🇸US_934|12.6MB/s
-  - 美国/San Francisco/United States/San Francisco-27
-  - HK   HYSTERIA2-TCP-NTLS  130.49.161.70
-  - By EbraSha 🧩
-  - By EbraSha 🛸
-  - 🏁RELAY-172.67.180.92-0658
-  - By EbraSha 🚧
-  - By EbraSha ⛓️-2
-  - 🇺🇸US_865|722KB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-23
-  - hy2-5
-  - By EbraSha ♦️
-  - By EbraSha 🚧-2
-  - 🏁RELAY-160.153.0.73-1041
-  - By EbraSha 🦈
-  - By EbraSha 💣
-  - 🇺🇸US_859|3.7MB/s
-  - 美国/凤凰城/United States/Phoenix
+  - 5 𝗝𝗼𝗶𝗻 ➠ @MoOon_proxy
   - By EbraSha 🪐
-  - By EbraSha 🥷-2
-  - 🏁RELAY-172.67.204.84-1049
-  - By EbraSha 🪬-3
-  - By EbraSha 🔥
-  - 🇺🇸US_810|3.9MB/s|R002-260618
-  - 美国/San Francisco/United States/San Francisco-21
+  - By EbraSha 🌍
   - By EbraSha 🌌
-  - By EbraSha 🌍-2
-  - 🏁RELAY-172.67.204.84-1057
-  - By EbraSha 🤖-2
-  - By EbraSha 🧿-3
-  - 🇺🇸US_831|10.0MB/s
-  - 美国/San Francisco/United States/San Francisco-20
-  - By EbraSha 🌪️
-  - By EbraSha 🚨-2
-  - 🏁RELAY-172.67.196.112-1069
-  - By EbraSha 🔐-2
-  - By EbraSha 🗿
-  - 🇺🇸US_834|4.4MB/s
-  - 美国/San Francisco/United States/San Francisco-19
-  - By EbraSha 🕹️-2
-  - By EbraSha 🛜
-  - 🏁RELAY-104.21.32.223-1109
-  - By EbraSha 📼-2
+  - 🏁RELAY-172.67.191.234-1076
+  - 'Channel : @Daily_Configs'
+  - 🇺🇸 CxrolVPN
+  - '@v2rayconfigamir 2575'
+  - By EbraSha 📀
+  - 🇺🇸US_506|572KB/s
+  - 🇺🇸US_602|12.8MB/s
+  - '🇽🇽 XX | VMESS | @ir_netproxy #1 [fast]'
+  - '@icv2ray'
+  - 🇺🇸+US+5
+  - NL   HYSTERIA2-TCP-NTLS - The Infrastructure Group B.V.  103.251.167.168
+  - '🇸🇪 SE | TUIC | @vipv2rey #1'
+  - end-gfw.com12@sg89
+  - 🇳🇱 - NL - @FreeOnlineVPN
+  - By EbraSha 🔋
+  - By EbraSha 🔌
+  - By EbraSha 🎛️
+  - 🏁RELAY-104.21.58.68-1088
+  - 'Telegram : @V2ynpv'
+  - '@Hope_Net-join-us-on-Telegram'
+  - '@IRAN_V2RAY1'
+  - By EbraSha 🛰️
+  - 🇺🇸US_495|8.5MB/s
+  - 🇺🇸US_705|6.0MB/s
+  - '🇩🇪 DE | VMESS | @khoneproxy #1 [fast]'
+  - 🇩🇪 @V2ngFast
+  - hy2
+  - '@MrNexTV2RAY'
+  - By EbraSha 🧩
   - By EbraSha 🐉
-  - 🇺🇸US_788|9.9MB/s
-  - 美国/San Francisco/United States/San Francisco-18
-  - By EbraSha 🧲-2
+  - By EbraSha ♣️
+  - 🏁RELAY-172.64.90.210-9637
+  - Proxy_Se7en
+  - '[🇺🇸]@NetliVPN'
+  - 'Tel: @Daily_Configs'
+  - By EbraSha 🩸
+  - 🇺🇸US_303|11.5MB/s
+  - 🇺🇸US_410|3.9MB/s
+  - '🇩🇪 DE | VMESS | @magickey_shop #1 [fast]'
+  - 🔵@chillguy_vpn
+  - hy2-2
+  - '@Hope_Net-join-us-on-Telegram-2'
+  - By EbraSha 🌃
+  - By EbraSha 🗿
+  - By EbraSha 🧠
+  - 🏁RELAY-104.31.16.46-9923
+  - '@Hope_Net-join-us-on-Telegram-3'
+  - 🚀@V2Ray_Hub1200
+  - '@IRAN_V2RAY1-2'
+  - By EbraSha 🔌-2
+  - 🇺🇸US_511|5.3MB/s|R002-260618
+  - 🇺🇸US_536|12.0MB/s
+  - '🇩🇪 DE | VMESS | @khoneproxy #2 [fast]'
+  - filembad-326
+  - hy2-3
+  - '@erfanandroid'
+  - By EbraSha 🌃-2
+  - By EbraSha 🦈
+  - By EbraSha 📟
+  - 🏁RELAY-104.31.16.38-9929
+  - 🇨🇦@FreakConfig
+  - 🇺🇸 CxrolVPN-2
+  - 🇨🇦 @GozargahVPN
+  - By EbraSha 🌑
+  - 🇺🇸US_779|1.2MB/s
+  - 🇯🇵JP_72|3.7MB/s|A001-260618
+  - 🔵@chillguy_vpn-2
+  - hy2-4
+  - '@TanhaNet 🇮🇷'
+  - By EbraSha 🦾
+  - By EbraSha 🚀
+  - By EbraSha 🧲
+  - 🏁RELAY-104.27.203.169-9975
+  - 🇩🇪 - DE - @FreeOnlineVPN
+  - 'اگه میخوای قطع نشی جوین شو : @farsiproxy'
+  - '@IRAN_V2RAY1-3'
+  - By EbraSha 🛜
+  - 🇺🇸US_492|10.5MB/s
+  - 🇯🇵JP_73|3.5MB/s|S001-260618
+  - '@MrNexTV2RAY-2'
+  - hy2-5
+  - 🪼30@oneclickvpnkeys
+  - By EbraSha 🚧
+  - By EbraSha ⚡
+  - By EbraSha 📶
+  - 🏁RELAY-172.67.166.111-0956
+  - 🇩🇪 @V2ngFast-2
+  - 🇸🇬
+  - '@IRAN_V2RAY1-4'
+  - By EbraSha 🌀
+  - 🇺🇸US_690|8.1MB/s|S001-260618
+  - 🇷🇺RU_4|2.0MB/s|K001-260618
+  - 🔵@chillguy_vpn-3
+  - HK   HYSTERIA2-TCP-NTLS  130.49.161.70
+  - 🇨🇦@FreakConfig-2
 rules:
 - MATCH,🚀 节点选择
